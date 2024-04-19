@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/auth/widgets/input_field.dart';
 import 'package:jayani_power/features/auth/widgets/login_button.dart';
+import 'package:jayani_power/features/home/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -67,6 +68,13 @@ class _LoginPageState extends State<LoginPage> {
                                 email: emailCtrl.text,
                                 password: passCtrl.text,
                               ));
+                          state is AuthSuccessState
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ))
+                              : null;
                         },
                       ),
                       const Spacer(),
