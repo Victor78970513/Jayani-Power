@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "184247539439",
+    "project_id": "jayani-power",
+    "storage_bucket": "jayani-power.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184247539439:android:4bd47a06dc64ff5e7c6d1a",
+        "android_client_info": {
+          "package_name": "com.example.jayani_power"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnnAMdNK33iBjCaC-xLC4sljFvYu7Ger8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
