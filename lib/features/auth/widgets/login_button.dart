@@ -11,17 +11,13 @@ class LoginButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 70,
-        width: size.width * 0.8,
+        height: 60,
+        width: size.width * 0.9,
         decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(30),
+          color: const Color(0xffFDA3B5),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Center(
-          // child: Text(
-          //   "Login",
-          //   style: TextStyle(color: Colors.white, fontSize: 18),
-          // ),
           child: child,
         ),
       ),

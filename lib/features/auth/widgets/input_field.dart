@@ -1,53 +1,47 @@
 import 'package:flutter/material.dart';
 
 class InputFieldWidget extends StatelessWidget {
+  final String title;
   final String hintText;
   final TextEditingController controller;
 
   const InputFieldWidget({
     super.key,
-    required this.hintText,
+    required this.title,
     required this.controller,
+    required this.hintText,
   });
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: Container(
-        height: 100,
-        width: size.width * 0.8,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.grey[400]!,
-              blurRadius: 0.5,
-              offset: const Offset(-0.5, -0.6),
-              spreadRadius: 0.4,
-              // blurStyle: BlurStyle.inner,
-            ),
-          ],
-          color: Colors.white,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(hintText),
-              TextFormField(
-                controller: controller,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                ),
-              ),
-            ],
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
           ),
-        ),
+          const SizedBox(height: 5),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 2, color: Colors.grey[600]!),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: TextFormField(
+                style: const TextStyle(color: Colors.white),
+                controller: controller,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: hintText,
+                    hintStyle: TextStyle(color: Colors.grey[600])),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
