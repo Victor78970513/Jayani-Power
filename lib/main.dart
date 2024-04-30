@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/core/theme/app_theme.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
-import 'package:jayani_power/features/auth/pages/login_page.dart';
+import 'package:jayani_power/features/auth/pages/sign_in_page.dart';
+import 'package:jayani_power/features/home/pages/home_page.dart';
 import 'package:jayani_power/firebase_options.dart';
 
 void main() async {
@@ -11,7 +12,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (context) => AuthBloc()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,14 +25,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => AuthBloc()),
-      ],
-      child: MaterialApp(
-        title: 'Jayani Power',
-        theme: AppTheme.getAppTheme,
-        home: const LoginPage(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Jayani Power',
+      theme: AppTheme.getAppTheme,
+      home: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is AuthSuccessState) {
+            return HomePage();
+          }
+          return SignInPage();
+        },
       ),
     );
   }

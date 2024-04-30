@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jayani_power/repositories/auth/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -26,7 +27,30 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<bool> signUpWithEmailAndPassowrd() {
-    // TODO: implement signUpWithEmailAndPassowrd
     throw UnimplementedError();
+  }
+
+  @override
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  @override
+  Future<bool> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      await GoogleSignIn().signOut();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

@@ -9,3 +9,7 @@ final class OnUserSignInEvent extends AuthEvent {
 
   OnUserSignInEvent({required this.email, required this.password});
 }
+
+final class OnUserGoogleSignInEvent extends AuthEvent {}
+
+final class OnUserSignOut extends AuthEvent {}
