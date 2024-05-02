@@ -14,18 +14,14 @@ class SocialMediaAuthButtons extends StatelessWidget {
           child: Image.asset("assets/icons/google_icon.png"),
           onTap: () {
             context.read<AuthBloc>().add(OnUserGoogleSignInEvent());
-            // state is AuthSuccessState
-            //     ? Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //             builder: (context) => const HomePage()))
-            //     : null;
           },
         ),
         const SizedBox(width: 20),
         SocialMediaButton(
           child: const Icon(Icons.facebook, color: Colors.blue, size: 40),
-          onTap: () {},
+          onTap: () {
+            context.read<AuthBloc>().add(OnUserFacebookSignInEvent());
+          },
         ),
         const SizedBox(width: 20),
         SocialMediaButton(

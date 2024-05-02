@@ -38,6 +38,12 @@ class InputFieldWidget extends StatelessWidget {
                     border: InputBorder.none,
                     hintText: hintText,
                     hintStyle: TextStyle(color: Colors.grey[600])),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "revisa el campo de $title";
+                  }
+                  return null;
+                },
               ),
             ),
           ),

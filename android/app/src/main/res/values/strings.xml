@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">1631411340977996</string>
+    <string name="fb_login_protocol_scheme">fb1631411340977996</string>
+    <string name="facebook_client_token">ca5738fad5eb9312313bb5c5af76566d</string>
+    <string name="app_name">"jayani_power"</string>
+</resources>

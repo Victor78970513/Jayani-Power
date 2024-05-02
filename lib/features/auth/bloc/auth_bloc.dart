@@ -12,15 +12,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
     _authRepository = AuthRepositoryImpl();
 
+    on<OnUserSignUpEvent>(_onUserSignUpEvent);
     on<OnUserSignInEvent>(_onUserSignIn);
     on<OnUserGoogleSignInEvent>(_onUserGoogleSignInEvent);
+    on<OnUserFacebookSignInEvent>(_onUserFacebookSignInEvent);
+    on<OnUserAppleSignInEvent>(_onUserAppleSignInEvent);
     on<OnUserSignOut>(_onUserSignOut);
   }
 
   FutureOr<void> _onUserSignIn(
       OnUserSignInEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
-    await Future.delayed(const Duration(seconds: 1));
     final response = await _authRepository.loginWithEmailAndPassword(
       email: event.email,
       password: event.password,
@@ -33,10 +35,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  FutureOr<void> _onUserSignOut(
+      OnUserSignOut event, Emitter<AuthState> emit) async {
+    final response = await _authRepository.signOut();
+    if (response) {
+      emit(AuthInitial());
+    } else {
+      emit(AuthFailureState());
+    }
+  }
+
   FutureOr<void> _onUserGoogleSignInEvent(
       OnUserGoogleSignInEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
-    // await Future.delayed(const Duration(seconds: 1));
     final response = await _authRepository.signInWithGoogle();
     if (response.user != null) {
       emit(AuthSuccessState());
@@ -45,11 +56,38 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  FutureOr<void> _onUserSignOut(
-      OnUserSignOut event, Emitter<AuthState> emit) async {
-    final response = await _authRepository.signOut();
+  FutureOr<void> _onUserAppleSignInEvent(
+      OnUserAppleSignInEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoadingState());
+    final response = await _authRepository.signInWithApple();
+    if (response.user != null) {
+      emit(AuthSuccessState());
+    } else {
+      emit(AuthFailureState());
+    }
+  }
+
+  FutureOr<void> _onUserFacebookSignInEvent(
+      OnUserFacebookSignInEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoadingState());
+    final response = await _authRepository.signInWithFacebook();
+    if (response.user != null) {
+      emit(AuthSuccessState());
+    } else {
+      emit(AuthFailureState());
+    }
+  }
+
+  FutureOr<void> _onUserSignUpEvent(
+      OnUserSignUpEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoadingState());
+    final response = await _authRepository.signUpWithEmailAndPassowrd(
+      email: event.email,
+      password: event.password,
+      username: event.username,
+    );
     if (response) {
-      emit(AuthInitial());
+      emit(AuthSuccessState());
     } else {
       emit(AuthFailureState());
     }
