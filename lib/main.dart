@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthSuccessState) {
-            return HomePage();
+            return const HomePage();
           }
-          return SignInPage();
+          return const SignInPage();
         },
       ),
     );
