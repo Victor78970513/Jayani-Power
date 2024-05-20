@@ -48,13 +48,14 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<UserCredential> signInWithGoogle() async {
+  Future<UserCredential?> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    if (googleUser == null) return null;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
 
     return await FirebaseAuth.instance.signInWithCredential(credential);
@@ -65,6 +66,7 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       await FirebaseAuth.instance.signOut();
       await GoogleSignIn().signOut();
+      await FacebookAuth.instance.logOut();
       return true;
     } catch (e) {
       return false;
@@ -72,13 +74,33 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<UserCredential> signInWithFacebook() async {
-    final LoginResult loginResult = await FacebookAuth.instance.login();
+  Future<UserCredential?> signInWithFacebook() async {
+    try {
+      // Realizar el inicio de sesión con Facebook
+      final LoginResult loginResult = await FacebookAuth.instance.login();
 
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      // Verificar si el inicio de sesión fue exitoso
+      if (loginResult.status == LoginStatus.success) {
+        // Obtener las credenciales de autenticación de Facebook
+        final OAuthCredential facebookAuthCredential =
+            FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+        // Iniciar sesión en Firebase con las credenciales de Facebook
+        final UserCredential userCredential = await FirebaseAuth.instance
+            .signInWithCredential(facebookAuthCredential);
+
+        // Devolver el resultado del inicio de sesión
+        return userCredential;
+      } else {
+        // Manejar el caso en el que el inicio de sesión con Facebook no fue exitoso
+        print("El inicio de sesión con Facebook no fue exitoso.");
+        return null;
+      }
+    } catch (e) {
+      // Manejar cualquier error que pueda ocurrir durante el inicio de sesión
+      print("Error durante el inicio de sesión con Facebook: $e");
+      return null;
+    }
   }
 
   @override

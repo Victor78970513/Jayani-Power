@@ -49,7 +49,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       OnUserGoogleSignInEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     final response = await _authRepository.signInWithGoogle();
-    if (response.user != null) {
+    if (response?.user != null) {
       emit(AuthSuccessState());
     } else {
       emit(AuthFailureState());
@@ -71,7 +71,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       OnUserFacebookSignInEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     final response = await _authRepository.signInWithFacebook();
-    if (response.user != null) {
+    if (response?.user != null) {
       emit(AuthSuccessState());
     } else {
       emit(AuthFailureState());

@@ -12,9 +12,9 @@ abstract class AuthRepository {
     required String username,
   });
 
-  Future<UserCredential> signInWithGoogle();
+  Future<UserCredential?> signInWithGoogle();
 
-  Future<UserCredential> signInWithFacebook();
+  Future<UserCredential?> signInWithFacebook();
 
   Future<UserCredential> signInWithApple();
 
