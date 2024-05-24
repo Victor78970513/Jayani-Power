@@ -87,11 +87,17 @@ class AuthRepositoryImpl extends AuthRepository {
         idToken: accessToken.tokenString,
         rawNonce: rawNonce,
       );
-      return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+      final user =
+          await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+      print(user);
+      return user;
     } else {
       final oauthCredential =
           FacebookAuthProvider.credential(accessToken.tokenString);
-      return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+      final user =
+          await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+      print(user);
+      return user;
     }
   }
 
