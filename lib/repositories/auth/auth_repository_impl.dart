@@ -57,7 +57,6 @@ class AuthRepositoryImpl extends AuthRepository {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
@@ -75,44 +74,31 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<UserCredential?> signInWithFacebook() async {
-    try {
-      // Realizar el inicio de sesión con Facebook
-      final LoginResult loginResult = await FacebookAuth.instance.login();
-
-      // Verificar si el inicio de sesión fue exitoso
-      if (loginResult.status == LoginStatus.success) {
-        // Obtener las credenciales de autenticación de Facebook
-        final OAuthCredential facebookAuthCredential =
-            FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-        // Iniciar sesión en Firebase con las credenciales de Facebook
-        final UserCredential userCredential = await FirebaseAuth.instance
-            .signInWithCredential(facebookAuthCredential);
-
-        // Devolver el resultado del inicio de sesión
-        return userCredential;
-      } else {
-        // Manejar el caso en el que el inicio de sesión con Facebook no fue exitoso
-        print("El inicio de sesión con Facebook no fue exitoso.");
-        return null;
-      }
-    } catch (e) {
-      // Manejar cualquier error que pueda ocurrir durante el inicio de sesión
-      print("Error durante el inicio de sesión con Facebook: $e");
+    final auth = FacebookAuth.instance;
+    final rawNonce = _generateNonce();
+    final nonce = _sha256ofString(rawNonce);
+    final result = await auth.login(nonce: nonce);
+    final accessToken = result.accessToken;
+    if (accessToken == null) {
       return null;
+    }
+    if (accessToken.type == AccessTokenType.limited) {
+      final oauthCredential = OAuthProvider("facebook.com").credential(
+        idToken: accessToken.tokenString,
+        rawNonce: rawNonce,
+      );
+      return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+    } else {
+      final oauthCredential =
+          FacebookAuthProvider.credential(accessToken.tokenString);
+      return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
     }
   }
 
   @override
-  Future<UserCredential> signInWithTwitter() {
-    // TODO: implement signInWithTwitter
-    throw UnimplementedError();
-  }
-
-  @override
   Future<UserCredential> signInWithApple() async {
-    final rawNonce = generateNonce();
-    final nonce = sha256ofString(rawNonce);
+    final rawNonce = _generateNonce();
+    final nonce = _sha256ofString(rawNonce);
     final appleCredential = await SignInWithApple.getAppleIDCredential(
       scopes: [
         AppleIDAuthorizationScopes.email,
@@ -128,7 +114,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 }
 
-String generateNonce([int length = 32]) {
+String _generateNonce([int length = 32]) {
   const charset =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
   final random = Random.secure();
@@ -136,7 +122,7 @@ String generateNonce([int length = 32]) {
       .join();
 }
 
-String sha256ofString(String input) {
+String _sha256ofString(String input) {
   final bytes = utf8.encode(input);
   final digest = sha256.convert(bytes);
   return digest.toString();

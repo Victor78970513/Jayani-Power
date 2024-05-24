@@ -18,7 +18,5 @@ abstract class AuthRepository {
 
   Future<UserCredential> signInWithApple();
 
-  Future<UserCredential> signInWithTwitter();
-
   Future<bool> signOut();
 }
