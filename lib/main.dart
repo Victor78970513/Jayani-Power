@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/core/theme/app_theme.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/auth/pages/sign_in_page.dart';
-import 'package:jayani_power/features/home/pages/home_page.dart';
+import 'package:jayani_power/features/tabs/cubit/navbar_cubit.dart';
+import 'package:jayani_power/features/tabs/pages/tabs_page.dart';
 import 'package:jayani_power/firebase_options.dart';
 
 void main() async {
@@ -25,17 +26,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Jayani Power',
-      theme: AppTheme.getAppTheme,
-      home: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          if (state is AuthSuccessState) {
-            return const HomePage();
-          }
-          return const SignInPage();
-        },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NavbarCubit()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Jayani Power',
+        theme: AppTheme.getAppTheme,
+        home: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is AuthSuccessState) {
+              return const TabsPage();
+            }
+            return const SignInPage();
+          },
+        ),
       ),
     );
   }
