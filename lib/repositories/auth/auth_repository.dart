@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthRepository {
-  Future<bool> loginWithEmailAndPassword({
+  Future<UserCredential?> loginWithEmailAndPassword({
     required String email,
     required String password,
   });
 
-  Future<bool> signUpWithEmailAndPassowrd({
+  Future<UserCredential?> signUpWithEmailAndPassowrd({
     required String email,
     required String password,
     required String username,
@@ -16,7 +16,7 @@ abstract class AuthRepository {
 
   Future<UserCredential?> signInWithFacebook();
 
-  Future<UserCredential> signInWithApple();
+  Future<UserCredential?> signInWithApple();
 
   Future<bool> signOut();
 }

@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -13,37 +11,34 @@ class AuthRepositoryImpl extends AuthRepository {
   FirebaseAuth authdb = FirebaseAuth.instance;
 
   @override
-  Future<bool> loginWithEmailAndPassword(
+  Future<UserCredential?> loginWithEmailAndPassword(
       {required String email, required String password}) async {
     try {
       final response = await authdb.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      if (response.user == null) return false;
-      return true;
+      if (response.user != null) return response;
+      return null;
     } catch (e) {
-      return false;
+      return null;
     }
   }
 
   @override
-  Future<bool> signUpWithEmailAndPassowrd(
+  Future<UserCredential?> signUpWithEmailAndPassowrd(
       {required String email,
       required String password,
       required String username}) async {
     try {
-      await authdb.createUserWithEmailAndPassword(
-          email: email, password: password);
-      CollectionReference users =
-          FirebaseFirestore.instance.collection('users');
-      await users.add({
-        'username': username,
-        'email': email,
-      });
-      return true;
+      final response = await authdb.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (response.user != null) return response;
+      return null;
     } catch (e) {
-      return false;
+      return null;
     }
   }
 
@@ -89,14 +84,12 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       final user =
           await FirebaseAuth.instance.signInWithCredential(oauthCredential);
-      print(user);
       return user;
     } else {
       final oauthCredential =
           FacebookAuthProvider.credential(accessToken.tokenString);
       final user =
           await FirebaseAuth.instance.signInWithCredential(oauthCredential);
-      print(user);
       return user;
     }
   }

@@ -7,6 +7,20 @@ final class AuthInitial extends AuthState {}
 
 final class AuthLoadingState extends AuthState {}
 
-final class AuthSuccessState extends AuthState {}
+final class AuthSuccessState extends AuthState {
+  final String uid;
 
-final class AuthFailureState extends AuthState {}
+  AuthSuccessState(this.uid);
+}
+
+final class AuthSignInFailureState extends AuthState {
+  final String message;
+
+  AuthSignInFailureState(this.message);
+}
+
+final class AuthSignUpFailureState extends AuthState {
+  final String message;
+
+  AuthSignUpFailureState(this.message);
+}

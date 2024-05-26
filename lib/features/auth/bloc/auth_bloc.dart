@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/repositories/auth/auth_repository.dart';
 import 'package:jayani_power/repositories/auth/auth_repository_impl.dart';
+import 'package:jayani_power/repositories/user/user_repository.dart';
+import 'package:jayani_power/repositories/user/user_repository_impl.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late AuthRepository _authRepository;
+  late UserRepository _userRepository;
   AuthBloc() : super(AuthInitial()) {
     _authRepository = AuthRepositoryImpl();
+    _userRepository = UserRepositoryImpl();
 
     on<OnUserSignUpEvent>(_onUserSignUpEvent);
     on<OnUserSignInEvent>(_onUserSignIn);
@@ -28,10 +32,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       password: event.password,
     );
 
-    if (response) {
-      emit(AuthSuccessState());
+    if (response != null) {
+      final created = await _userRepository.createUser(
+        email: response.user?.email ?? "sin correo",
+        username: response.user?.displayName ?? "Sin nombre",
+        uid: response.user!.uid,
+        createdAt: DateTime.now(),
+        updateAt: DateTime.now(),
+      );
+      if (created) {
+        emit(AuthSuccessState(response.user!.uid));
+      } else {
+        emit(AuthSignUpFailureState("Error al crear cuenta"));
+      }
     } else {
-      emit(AuthFailureState());
+      emit(AuthSignInFailureState("Error al Iniciar Sesion"));
     }
   }
 
@@ -41,7 +56,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (response) {
       emit(AuthInitial());
     } else {
-      emit(AuthFailureState());
+      emit(AuthSignInFailureState("Error al cerrar sesion"));
     }
   }
 
@@ -49,10 +64,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       OnUserGoogleSignInEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     final response = await _authRepository.signInWithGoogle();
-    if (response?.user != null) {
-      emit(AuthSuccessState());
+    if (response != null) {
+      final created = await _userRepository.createUser(
+        email: response.user?.email ?? "sin correo",
+        username: response.user?.displayName ?? "sin nombre",
+        uid: response.user!.uid,
+        createdAt: DateTime.now(),
+        updateAt: DateTime.now(),
+      );
+      if (created) {
+        emit(AuthSuccessState(response.user!.uid));
+      } else {
+        emit(AuthSignUpFailureState("Error al crear cuenta"));
+      }
     } else {
-      emit(AuthFailureState());
+      emit(AuthSignInFailureState("Error al iniciar sesion con Google"));
     }
   }
 
@@ -60,10 +86,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       OnUserAppleSignInEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
     final response = await _authRepository.signInWithApple();
-    if (response.user != null) {
-      emit(AuthSuccessState());
+    if (response != null) {
+      final created = await _userRepository.createUser(
+        email: response.user?.email ?? "sin correo",
+        username: response.user?.displayName ?? "sin nombre",
+        uid: response.user!.uid,
+        createdAt: DateTime.now(),
+        updateAt: DateTime.now(),
+      );
+      if (created) {
+        emit(AuthSuccessState(response.user!.uid));
+      } else {
+        emit(AuthSignUpFailureState("Error al crear cuenta"));
+      }
     } else {
-      emit(AuthFailureState());
+      emit(AuthSignInFailureState("Error al iniciar sesion con Apple"));
     }
   }
 
@@ -72,9 +109,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoadingState());
     final response = await _authRepository.signInWithFacebook();
     if (response != null) {
-      emit(AuthSuccessState());
+      final created = await _userRepository.createUser(
+        email: response.user?.email ?? "sin correo",
+        username: response.user?.displayName ?? "sin nombre",
+        uid: response.user!.uid,
+        createdAt: DateTime.now(),
+        updateAt: DateTime.now(),
+      );
+      if (created) {
+        emit(AuthSuccessState(response.user!.uid));
+      } else {
+        emit(AuthSignUpFailureState("Error al crear cuenta"));
+      }
     } else {
-      emit(AuthFailureState());
+      emit(AuthSignInFailureState("Error al iniciar sesion con Facebook"));
     }
   }
 
@@ -86,10 +134,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       password: event.password,
       username: event.username,
     );
-    if (response) {
-      emit(AuthSuccessState());
+    if (response != null) {
+      final created = await _userRepository.createUser(
+        email: event.email,
+        username: event.username,
+        uid: response.user!.uid,
+        createdAt: DateTime.now(),
+        updateAt: DateTime.now(),
+      );
+      if (created) {
+        emit(AuthSuccessState(response.user!.uid));
+      } else {
+        emit(AuthSignUpFailureState("Error al crear cuenta"));
+      }
     } else {
-      emit(AuthFailureState());
+      emit(AuthSignUpFailureState("Error al crear cuenta"));
     }
   }
 }

@@ -38,9 +38,9 @@ class _SignUpPageState extends State<SignUpPage> {
           if (state is AuthSuccessState) {
             Navigator.pop(context);
           }
-          if (state is AuthFailureState) {
+          if (state is AuthSignUpFailureState) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Parece que la cuenta ya existe")),
+              SnackBar(content: Text(state.message)),
             );
           }
         },

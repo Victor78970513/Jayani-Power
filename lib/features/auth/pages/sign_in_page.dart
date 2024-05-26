@@ -33,9 +33,9 @@ class _SignInPageState extends State<SignInPage> {
       backgroundColor: const Color(0xff0E1021),
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthFailureState) {
+          if (state is AuthSignInFailureState) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Correo o contraseña incorrectos")),
+              SnackBar(content: Text(state.message)),
             );
           }
         },
