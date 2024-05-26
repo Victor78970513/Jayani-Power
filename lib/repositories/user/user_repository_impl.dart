@@ -1,6 +1,9 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jayani_power/models/user_model.dart';
 import 'package:jayani_power/repositories/user/user_repository.dart';
 
@@ -57,7 +60,7 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<bool> updateUser({
+  Future<bool> updateUserData({
     required String uid,
     required String email,
     required String username,
@@ -87,5 +90,16 @@ class UserRepositoryImpl extends UserRepository {
       log(e.toString());
       return false;
     }
+  }
+
+  @override
+  Future<String> updateProfileImage(XFile imagePath) async {
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirImages = referenceRoot.child("profile-images");
+    Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
+    await referenceImageToUpload.putFile(File(imagePath.path));
+    final imageUrl = await referenceImageToUpload.getDownloadURL();
+    return imageUrl;
   }
 }

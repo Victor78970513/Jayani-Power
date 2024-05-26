@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
 
 class EditProfileFields extends StatefulWidget {
-  const EditProfileFields({super.key});
+  final XFile? localImage;
+  const EditProfileFields({super.key, required this.localImage});
 
   @override
   State<EditProfileFields> createState() => _EditProfileFieldsState();
@@ -21,9 +24,9 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
         context.read<ProfileBloc>().state as ProfileSuccessState;
     nameCtrl.text = profileBloc.user.username;
     emailCtrl.text = profileBloc.user.email;
-    weightCtrl.text = "${profileBloc.user.weight}";
-    heightCtrl.text = "${profileBloc.user.height}";
-    ageCtrl.text = "${profileBloc.user.age}";
+    weightCtrl.text = profileBloc.user.weight;
+    heightCtrl.text = profileBloc.user.height;
+    ageCtrl.text = profileBloc.user.age;
     super.initState();
   }
 
@@ -67,18 +70,24 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
                 backgroundColor: const Color(0xffFDA3B5),
               ),
               onPressed: () {
-                final profileBloc =
-                    context.read<ProfileBloc>().state as ProfileSuccessState;
-                context.read<ProfileBloc>().add(OnEditProfileEvent(
-                      uid: profileBloc.user.uid,
-                      email: emailCtrl.text,
-                      username: nameCtrl.text,
-                      profilePictureUrl: profileBloc.user.profilePictureUrl,
-                      publicProfile: profileBloc.user.publicProfile,
-                      weight: double.parse(weightCtrl.text),
-                      height: double.parse(heightCtrl.text),
-                      age: int.parse(ageCtrl.text),
-                    ));
+                if (state is ProfileSuccessState) {
+                  context.read<ProfileBloc>().add(OnEditProfileEvent(
+                        uid: state.user.uid,
+                        email: emailCtrl.text,
+                        username: nameCtrl.text,
+                        localImage: widget.localImage,
+                        profilePictureUrl: state.user.profilePictureUrl,
+                        publicProfile: state.user.publicProfile,
+                        weight: double.parse(weightCtrl.text),
+                        height: double.parse(heightCtrl.text),
+                        age: int.parse(ageCtrl.text),
+                      ));
+                } else {
+                  final authBloc = AuthBloc().state as AuthSuccessState;
+                  context
+                      .read<ProfileBloc>()
+                      .add(OnGetProfileEvent(authBloc.uid));
+                }
               },
               child: state is ProfileLoadingState
                   ? const CircularProgressIndicator()

@@ -1,3 +1,4 @@
+import 'package:image_picker/image_picker.dart';
 import 'package:jayani_power/models/user_model.dart';
 
 abstract class UserRepository {
@@ -10,7 +11,7 @@ abstract class UserRepository {
   });
   Future<UserModel?> getUserData(String uid);
 
-  Future<bool> updateUser({
+  Future<bool> updateUserData({
     required String uid,
     required String email,
     required String username,
@@ -20,4 +21,6 @@ abstract class UserRepository {
     required double height,
     required int age,
   });
+
+  Future<String> updateProfileImage(XFile imagePath);
 }

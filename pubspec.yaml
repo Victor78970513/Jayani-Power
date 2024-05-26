@@ -43,6 +43,7 @@ dependencies:
   crypto: ^3.0.3
   cloud_firestore: ^4.17.2
   image_picker: ^1.1.1
+  firebase_storage: ^11.7.6
 
 dev_dependencies:
 
@@ -68,6 +69,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/macros_images/
+    - assets/loaders/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

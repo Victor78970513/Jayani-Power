@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:jayani_power/core/utils/picker_image.dart';
 import 'package:jayani_power/features/profile/widgets/edit_profile_field.dart';
 
@@ -10,6 +11,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  XFile? localImage;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +21,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: () {
-                pickImageFromCamera();
+              onTap: () async {
+                localImage = await pickImageFromCamera();
+                setState(() {});
               },
               child: CircleAvatar(
                 backgroundColor: Colors.amber[300],
@@ -47,7 +50,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 ),
               ),
             ),
-            const EditProfileFields(),
+            EditProfileFields(
+              localImage: localImage,
+            ),
           ],
         ),
       ),

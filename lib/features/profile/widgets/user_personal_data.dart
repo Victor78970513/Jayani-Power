@@ -12,7 +12,20 @@ class UserPersonalData extends StatelessWidget {
         if (state is ProfileSuccessState) {
           return Column(
             children: [
-              const CircleAvatar(radius: 60),
+              CircleAvatar(
+                radius: 60,
+                backgroundColor: Colors.transparent,
+                child: ClipOval(
+                  child: FadeInImage(
+                    placeholder:
+                        const AssetImage("assets/loaders/gym_loading.gif"),
+                    image: NetworkImage(state.user.profilePictureUrl),
+                    fit: BoxFit.cover,
+                    width: 120.0,
+                    height: 120.0,
+                  ),
+                ),
+              ),
               const SizedBox(height: 15),
               Text(
                 state.user.username,
