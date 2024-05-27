@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/features/custom_plans/pages/custom_plans_page.dart';
+import 'package:jayani_power/features/custom_plans/pages/exercise_page.dart';
 import 'package:jayani_power/features/home/pages/home_page.dart';
 import 'package:jayani_power/features/profile/pages/profile_page.dart';
 import 'package:jayani_power/features/social_media/pages/social_media_page.dart';
@@ -21,7 +22,8 @@ class TabsPage extends StatelessWidget {
                 child: IndexedStack(
                   index: state,
                   children: const [
-                    HomePage(),
+                    //HomePage(),
+                    ExercisePage(),
                     CustomoPlansPage(),
                     SocialMedaPage(),
                     ProfilePage(),
