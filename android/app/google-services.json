@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "184247539439-ootdaopsc4oo4mq91u8gfs8jou8u44sn.apps.googleusercontent.com",
+          "client_id": "184247539439-q7dd7pgjaro3jsd7sbs3i4td89mm5abn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.jayani_power",
-            "certificate_hash": "7aafff90ebac912404b71c9912cd860d24e96874"
+            "certificate_hash": "807ff9a452fee7525650f2eb7972672a70975c73"
           }
         },
         {
