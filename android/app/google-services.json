@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "184247539439-rgb2phss13fpsi6v8grb72celmvb0mbs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jayani_power",
+            "certificate_hash": "3d2cec977493d1130500c78c210438598cae80f7"
+          }
+        },
+        {
           "client_id": "184247539439-0kvlvflbcv0f3kbp3r8mbr8519neg613.apps.googleusercontent.com",
           "client_type": 3
         }

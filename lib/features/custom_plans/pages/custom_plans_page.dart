@@ -6,8 +6,9 @@ class CustomoPlansPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('CustomoPlansPage'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text('Pene'), Text('pene2')],
       ),
     );
   }
