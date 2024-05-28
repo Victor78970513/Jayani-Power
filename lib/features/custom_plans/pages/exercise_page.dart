@@ -6,8 +6,38 @@ class ExercisePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [ExerciseCard()],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "EXERCISE",
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                ),
+                // Spacer(),
+                Text("See all",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+              ],
+            ),
+            SizedBox(height: 10),
+            Container(
+              child: ListView.builder(
+                  itemCount: 9,
+                  itemBuilder: (context, index) => ExerciseCard(
+                        exercise: "Jumping Ropes",
+                        kcal: 110,
+                        timeInMinutes: 8,
+                        level: "Beginner",
+                      )),
+              height: MediaQuery.of(context).size.height * 0.8,
+              width: MediaQuery.of(context).size.width,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -22,9 +22,8 @@ class TabsPage extends StatelessWidget {
                 child: IndexedStack(
                   index: state,
                   children: const [
-                    //HomePage(),
+                    HomePage(),
                     ExercisePage(),
-                    CustomoPlansPage(),
                     SocialMedaPage(),
                     ProfilePage(),
                   ],

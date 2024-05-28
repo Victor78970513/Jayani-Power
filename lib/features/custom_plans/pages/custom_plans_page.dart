@@ -8,7 +8,6 @@ class CustomoPlansPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text('Pene'), Text('pene2')],
       ),
     );
   }
