@@ -16,18 +16,12 @@ class SocialMediaAuthButtons extends StatelessWidget {
             context.read<AuthBloc>().add(OnUserGoogleSignInEvent());
           },
         ),
-        const SizedBox(width: 20),
+        const SizedBox(width: 30),
         SocialMediaButton(
           child: const Icon(Icons.facebook, color: Colors.blue, size: 40),
           onTap: () {
             context.read<AuthBloc>().add(OnUserFacebookSignInEvent());
           },
-        ),
-        const SizedBox(width: 20),
-        SocialMediaButton(
-          child:
-              const Icon(Icons.apple_outlined, color: Colors.white, size: 40),
-          onTap: () {},
         ),
       ],
     );

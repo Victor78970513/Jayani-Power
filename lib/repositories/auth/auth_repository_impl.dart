@@ -5,10 +5,12 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jayani_power/repositories/auth/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  FirebaseAuth authdb = FirebaseAuth.instance;
+  // FirebaseAuth authdb = FirebaseAuth.instance;
+  final FirebaseAuth authdb;
+
+  AuthRepositoryImpl(this.authdb);
 
   @override
   Future<UserCredential?> loginWithEmailAndPassword(
@@ -97,24 +99,6 @@ class AuthRepositoryImpl extends AuthRepository {
           await FirebaseAuth.instance.signInWithCredential(oauthCredential);
       return user;
     }
-  }
-
-  @override
-  Future<UserCredential> signInWithApple() async {
-    final rawNonce = _generateNonce();
-    final nonce = _sha256ofString(rawNonce);
-    final appleCredential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-      nonce: nonce,
-    );
-    final oauthCredential = OAuthProvider("apple.com").credential(
-      idToken: appleCredential.identityToken,
-      rawNonce: rawNonce,
-    );
-    return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
   }
 }
 

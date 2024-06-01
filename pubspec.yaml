@@ -37,7 +37,6 @@ dependencies:
   flutter_bloc: ^8.1.5
   google_sign_in: ^6.2.1
   google_sign_in_ios: ^5.7.6
-  sign_in_with_apple: ^6.1.0
   flutter_facebook_auth: ^7.0.0
   font_awesome_flutter: ^10.7.0
   crypto: ^3.0.3
@@ -53,6 +52,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  test: ^1.24.9
+  mockito: ^5.4.4
   flutter_test:
     sdk: flutter
 
