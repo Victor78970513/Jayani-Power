@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/repositories/auth/auth_repository.dart';
@@ -13,14 +14,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   late AuthRepository _authRepository;
   late UserRepository _userRepository;
   AuthBloc() : super(AuthInitial()) {
-    _authRepository = AuthRepositoryImpl();
+    _authRepository = AuthRepositoryImpl(FirebaseAuth.instance);
     _userRepository = UserRepositoryImpl();
 
     on<OnUserSignUpEvent>(_onUserSignUpEvent);
     on<OnUserSignInEvent>(_onUserSignIn);
     on<OnUserGoogleSignInEvent>(_onUserGoogleSignInEvent);
     on<OnUserFacebookSignInEvent>(_onUserFacebookSignInEvent);
-    on<OnUserAppleSignInEvent>(_onUserAppleSignInEvent);
     on<OnUserSignOut>(_onUserSignOut);
   }
 
@@ -79,28 +79,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } else {
       emit(AuthSignInFailureState("Error al iniciar sesion con Google"));
-    }
-  }
-
-  FutureOr<void> _onUserAppleSignInEvent(
-      OnUserAppleSignInEvent event, Emitter<AuthState> emit) async {
-    emit(AuthLoadingState());
-    final response = await _authRepository.signInWithApple();
-    if (response != null) {
-      final created = await _userRepository.createUser(
-        email: response.user?.email ?? "sin correo",
-        username: response.user?.displayName ?? "sin nombre",
-        uid: response.user!.uid,
-        createdAt: DateTime.now(),
-        updateAt: DateTime.now(),
-      );
-      if (created) {
-        emit(AuthSuccessState(response.user!.uid));
-      } else {
-        emit(AuthSignUpFailureState("Error al crear cuenta"));
-      }
-    } else {
-      emit(AuthSignInFailureState("Error al iniciar sesion con Apple"));
     }
   }
 

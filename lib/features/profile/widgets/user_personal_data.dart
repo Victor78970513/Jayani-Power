@@ -20,6 +20,14 @@ class UserPersonalData extends StatelessWidget {
                     placeholder:
                         const AssetImage("assets/loaders/gym_loading.gif"),
                     image: NetworkImage(state.user.profilePictureUrl),
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        "assets/loaders/gym_loading.gif",
+                        fit: BoxFit.cover,
+                        width: 120.0,
+                        height: 120.0,
+                      );
+                    },
                     fit: BoxFit.cover,
                     width: 120.0,
                     height: 120.0,
