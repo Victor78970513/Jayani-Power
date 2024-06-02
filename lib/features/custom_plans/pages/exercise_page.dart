@@ -33,7 +33,7 @@ class ExercisePage extends StatelessWidget {
                         timeInMinutes: 8,
                         level: "Beginner",
                       )),
-              height: MediaQuery.of(context).size.height * 0.8,
+              height: MediaQuery.of(context).size.height * 0.7,
               width: MediaQuery.of(context).size.width,
             )
           ],
