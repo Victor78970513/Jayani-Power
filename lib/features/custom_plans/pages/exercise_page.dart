@@ -15,21 +15,6 @@ class ExercisePage extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: ListView.builder(
-<<<<<<< HEAD
-                  itemCount: 9,
-                  itemBuilder: (context, index) => ExerciseCard(
-                        exercise: "Jumping Ropes",
-                        kcal: 110,
-                        timeInMinutes: 8,
-                        level: "Beginner",
-                      )),
-              height: MediaQuery.of(context).size.height * 0.7,
-              width: MediaQuery.of(context).size.width,
-            )
-          ],
-        ),
-      ),
-=======
                   itemCount: state.myRoutine[0].exercises.length,
                   itemBuilder: (context, index) {
                     final exercise = state.myRoutine[0].exercises[index];
@@ -93,7 +78,6 @@ class ExercisePage extends StatelessWidget {
           );
         }
       },
->>>>>>> gpt implementation for exercises in test
     );
   }
 }
