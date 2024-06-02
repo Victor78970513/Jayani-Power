@@ -64,28 +64,26 @@ class MacroGoalItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Container(
-        child: Column(
-          children: [
-            Container(
-              height: 100,
-              width: 150,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(imagePath), fit: BoxFit.cover),
-                borderRadius: BorderRadius.circular(30),
-              ),
+      child: Column(
+        children: [
+          Container(
+            height: 100,
+            width: 150,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(imagePath), fit: BoxFit.cover),
+              borderRadius: BorderRadius.circular(30),
             ),
-            Text(macros,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            Text("$cantMacros",
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-            const Text("Gramos por dia",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
-          ],
-        ),
+          ),
+          Text(macros,
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          Text("$cantMacros",
+              style:
+                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          const Text("Gramos por dia",
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+        ],
       ),
     );
   }

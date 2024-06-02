@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SocialMedaPage extends StatelessWidget {
-  const SocialMedaPage({super.key});
+class DietsPage extends StatelessWidget {
+  const DietsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('SocialMedaPage'),
+        child: Text("DIETAS"),
       ),
     );
   }

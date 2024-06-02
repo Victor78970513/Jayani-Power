@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'dart:math';
+import 'dart:math' as math;
 import 'package:crypto/crypto.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jayani_power/repositories/auth/auth_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:developer';
 
 class AuthRepositoryImpl extends AuthRepository {
   // FirebaseAuth authdb = FirebaseAuth.instance;
@@ -57,7 +58,7 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
-      print(e);
+      log(e.toString());
       return null;
     }
   }
@@ -105,7 +106,7 @@ class AuthRepositoryImpl extends AuthRepository {
 String _generateNonce([int length = 32]) {
   const charset =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
-  final random = Random.secure();
+  final random = math.Random.secure();
   return List.generate(length, (_) => charset[random.nextInt(charset.length)])
       .join();
 }
