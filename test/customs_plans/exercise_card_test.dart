@@ -5,12 +5,12 @@ import 'package:jayani_power/features/custom_plans/widgets/exercise_card.dart';
 void main() {
   testWidgets('ExerciseCard displays details', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
         home: Scaffold(
       body: ExerciseCard(
           exercise: "Jumping Ropes",
-          kcal: 110,
-          timeInMinutes: 8,
+          repeticiones: "a",
+          series: "a",
           level: "Beginner"),
     )));
 
