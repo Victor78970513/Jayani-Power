@@ -38,4 +38,44 @@ class GptPromtConstats {
     ]
     ''';
   }
+
+  static String customDiet() {
+    return '''
+    Debes ponerte en el rol de un nutricionista y ser bastante serio, ya que hay factores que deberás tener en cuenta del paciente que atenderás. Se le consultó al paciente lo siguiente:
+    Altura: 174 cm
+    Edad: 21 años
+    Peso: 110 kilos
+    Género: masculino
+    Alergias: ninguna
+    Enfermedades: ninguna
+    De esa manera para cada día de la semana en formato JSON.
+    este debe ser para todos los dias de la semana, empezando por el lunes y terminando el viernes
+    Teniendo en cuenta los aspectos que te di de las personas, necesito que me generes un objeto de la siguiente manera y solo retorname el JSON:
+    comidas: [
+                {
+                  day: "lunes",
+                  meals: [
+                    {
+                      meal: "Desayuno",
+                      description: "2 huevos, 1 taza de avena, 1 plátano",
+                      calories: "400",
+                      proteins: 20,
+                    },
+                    {
+                      meal: "Almuerzo",
+                      description: "1 pechuga de pollo, 1 taza de arroz, 1 taza de brócoli",
+                      calories: "500",
+                      proteins: "25",
+                    },
+                    {
+                      meal: "Cena",
+                      description: "1 pechuga de pollo, 1 taza de arroz, 1 taza de brócoli",
+                      calories: "500",
+                      proteins: "25",
+                    },
+                  ]
+                },
+              ]
+    ''';
+  }
 }

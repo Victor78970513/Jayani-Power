@@ -5,7 +5,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jayani_power/core/theme/app_theme.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/auth/pages/sign_in_page.dart';
-import 'package:jayani_power/features/custom_plans/bloc/custom_plans_bloc.dart';
 import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
 import 'package:jayani_power/features/tabs/cubit/navbar_cubit.dart';
 import 'package:jayani_power/features/tabs/pages/tabs_page.dart';
@@ -34,7 +33,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => NavbarCubit()),
         BlocProvider(create: (context) => ProfileBloc()),
-        BlocProvider(create: (context) => CustomPlansBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
