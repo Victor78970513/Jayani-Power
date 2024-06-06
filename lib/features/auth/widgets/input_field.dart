@@ -4,13 +4,16 @@ class InputFieldWidget extends StatelessWidget {
   final String title;
   final String hintText;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final Function(String)? onChange;
 
-  const InputFieldWidget({
-    super.key,
-    required this.title,
-    required this.controller,
-    required this.hintText,
-  });
+  const InputFieldWidget(
+      {super.key,
+      required this.title,
+      required this.controller,
+      required this.hintText,
+      this.validator,
+      this.onChange});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +22,6 @@ class InputFieldWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(color: Colors.white, fontSize: 16),
-          ),
           const SizedBox(height: 5),
           Container(
             decoration: BoxDecoration(
@@ -38,12 +37,8 @@ class InputFieldWidget extends StatelessWidget {
                     border: InputBorder.none,
                     hintText: hintText,
                     hintStyle: TextStyle(color: Colors.grey[600])),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "revisa el campo de $title";
-                  }
-                  return null;
-                },
+                validator: validator,
+                onChanged: onChange,
               ),
             ),
           ),

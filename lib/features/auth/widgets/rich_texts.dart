@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jayani_power/core/cubit/terms_policy_cubit.dart';
 import 'package:jayani_power/features/auth/pages/sign_up_page.dart';
 
 class TermsAndPrivacy extends StatelessWidget {
@@ -8,33 +10,52 @@ class TermsAndPrivacy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(value: false, onChanged: (value) {}),
-        const Text.rich(
-          TextSpan(
-              text: "I Agree with ",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              children: [
-                TextSpan(
-                  text: "Terms of Service ",
-                  style: TextStyle(
-                      color: Color(0xffFDA3B5), fontWeight: FontWeight.bold),
-                ),
-                TextSpan(
-                  text: "and ",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                TextSpan(
-                  text: "Privacy Policy",
-                  style: TextStyle(
-                      color: Color(0xffFDA3B5), fontWeight: FontWeight.bold),
-                ),
-              ]),
-        ),
-      ],
+    return BlocBuilder<TermsPolicyCubit, bool>(
+      builder: (context, state) {
+        return Row(
+          children: [
+            Checkbox(
+              value: state,
+              onChanged: (value) {
+                if (value == true) {
+                  context.read<TermsPolicyCubit>().aceptTermsAndPolicy();
+                } else {
+                  context.read<TermsPolicyCubit>().declineTermsAndPolicy();
+                }
+              },
+            ),
+            Expanded(
+              child: RichText(
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                text: const TextSpan(
+                    text: "I Agree with",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                    children: [
+                      TextSpan(
+                        text: "Terms of Service ",
+                        style: TextStyle(
+                            color: Color(0xffFDA3B5),
+                            fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text: "and ",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      TextSpan(
+                        text: "Privacy Policy",
+                        style: TextStyle(
+                            color: Color(0xffFDA3B5),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ]),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

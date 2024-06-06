@@ -18,7 +18,7 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
                 'Authorization': 'Bearer ${dotenv.env['GPT_TOKEN']}',
               }),
               data: {
-            "model": "gpt-4",
+            "model": "gpt-3.5-turbo",
             "messages": [
               {
                 "role": "system",
@@ -38,9 +38,9 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
               description: exercise["descripcion"] ?? "",
               type: exercise['tipo'] ?? "",
               objective: exercise['objetivo'] ?? "",
-              series: exercise['series'] ?? "sin series",
-              repes: exercise['repeticiones'] ?? "sin series",
-              descanso: exercise['descanso'] ?? "sin series",
+              series: exercise['series'] ?? "",
+              repes: exercise['repeticiones'] ?? "",
+              descanso: exercise['descanso'] ?? "",
             );
             ejercicios.add(ejercicio);
           }
@@ -66,7 +66,7 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
                 'Authorization': 'Bearer ${dotenv.env['GPT_TOKEN']}',
               }),
               data: {
-            "model": "gpt-4",
+            "model": "gpt-3.5-turbo",
             "messages": [
               {
                 "role": "system",

@@ -20,9 +20,9 @@ class GptPromtConstats {
             "descripcion": "Descripción del ejercicio 1",
             "tipo": "Cardio",
             "objetivo": "Mejorar la resistencia cardiovascular",
-            "series": "3",
-            "repeticiones": "10",
-            "descanso": "30",
+            "series": "3 series",
+            "repeticiones": "10 repeticiones",
+            "descanso": "30 segundos",
           },
           {
             "nombre": "Ejercicio 2",

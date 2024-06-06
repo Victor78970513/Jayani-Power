@@ -44,11 +44,15 @@ class ExerciseCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Text(
-                        "$series series",
+                        series.isNotEmpty ? series : "sin series",
                         style: const TextStyle(color: Colors.black),
                       ),
                       const Text("|"),
-                      Text("$repeticiones repeticiones")
+                      Text(
+                        repeticiones.isNotEmpty
+                            ? repeticiones
+                            : "sin repeticiones",
+                      )
                     ],
                   ),
                 ),

@@ -30,12 +30,8 @@ class _CustomoPlansPageState extends State<CustomoPlansPage>
       child: Column(
         children: [
           TabBar(controller: tabController, tabs: const [
-            Tab(
-              text: "DIetas",
-            ),
-            Tab(
-              text: "Rutinas",
-            ),
+            Tab(text: "DIetas"),
+            Tab(text: "Rutinas"),
           ]),
           const WeekListWidget(),
           Expanded(

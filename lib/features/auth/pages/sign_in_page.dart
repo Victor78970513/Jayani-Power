@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jayani_power/core/cubit/terms_policy_cubit.dart';
+import 'package:jayani_power/core/utils/check_email.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/auth/widgets/input_field.dart';
 import 'package:jayani_power/features/auth/widgets/login_button.dart';
@@ -17,6 +19,7 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController passCtrl = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  String? _emailErrorText;
 
   @override
   void dispose() {
@@ -25,10 +28,27 @@ class _SignInPageState extends State<SignInPage> {
     super.dispose();
   }
 
+  void validateEmail(String value) {
+    if (value.isEmpty) {
+      setState(() {
+        _emailErrorText = 'Email is required';
+      });
+    } else if (!isEmailValid(value)) {
+      setState(() {
+        _emailErrorText = 'Enter a valid email address';
+      });
+    } else {
+      setState(() {
+        _emailErrorText = null;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     formKey.currentState?.validate();
     final size = MediaQuery.of(context).size;
+    final termsAndPolicyCubit = context.watch<TermsPolicyCubit>().state;
     return Scaffold(
       backgroundColor: const Color(0xff0E1021),
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -60,6 +80,8 @@ class _SignInPageState extends State<SignInPage> {
                         title: "Email",
                         hintText: "Enter Email",
                         controller: emailCtrl,
+                        validator: (value) => _emailErrorText,
+                        onChange: validateEmail,
                       ),
                       const SizedBox(height: 20),
                       InputFieldWidget(
@@ -71,6 +93,24 @@ class _SignInPageState extends State<SignInPage> {
                       const TermsAndPrivacy(),
                       const SizedBox(height: 10),
                       LoginButton(
+                        onTap: termsAndPolicyCubit
+                            ? () {
+                                if (formKey.currentState!.validate()) {
+                                  context
+                                      .read<AuthBloc>()
+                                      .add(OnUserSignInEvent(
+                                        email: emailCtrl.text.trim(),
+                                        password: passCtrl.text.trim(),
+                                      ));
+                                }
+                              }
+                            : () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          "DEBES ACEPTAR LOS TERMINOS DE PRIVACIDAD Y POLITICAS")),
+                                );
+                              },
                         child: state is AuthLoadingState
                             ? const CircularProgressIndicator(
                                 color: Colors.black)
@@ -81,14 +121,6 @@ class _SignInPageState extends State<SignInPage> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
-                        onTap: () {
-                          if (formKey.currentState!.validate()) {
-                            context.read<AuthBloc>().add(OnUserSignInEvent(
-                                  email: emailCtrl.text.trim(),
-                                  password: passCtrl.text.trim(),
-                                ));
-                          }
-                        },
                       ),
                       const SizedBox(height: 30),
                       Row(
