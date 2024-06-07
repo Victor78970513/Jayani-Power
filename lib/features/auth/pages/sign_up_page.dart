@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/auth/widgets/input_field.dart';
 import 'package:jayani_power/features/auth/widgets/login_button.dart';
@@ -32,7 +33,6 @@ class _SignUpPageState extends State<SignUpPage> {
     formKey.currentState?.validate();
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xff0E1021),
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthSuccessState) {
@@ -53,29 +53,32 @@ class _SignUpPageState extends State<SignUpPage> {
                   key: formKey,
                   child: Column(
                     children: [
-                      const Text("GETTING STARTED!",
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                      const SizedBox(height: 10),
+                      SvgPicture.asset(
+                        "assets/icons/jayani_logo.svg",
+                        height: 70,
+                        width: 50,
+                      ),
+                      const SizedBox(height: 20),
                       Text(
-                        "create account to start using Jayani Power",
-                        style: TextStyle(color: Colors.grey[700], fontSize: 14),
+                        "Crea una cuenta para empezar a usar Jayani Power",
+                        style: TextStyle(color: Colors.grey[400], fontSize: 14),
                       ),
                       const SizedBox(height: 20),
                       InputFieldWidget(
                         title: "Email",
-                        hintText: "Enter Email",
+                        hintText: "Ingresa tu correo",
                         controller: emailCtrl,
                       ),
                       const SizedBox(height: 20),
                       InputFieldWidget(
                         title: "Username",
-                        hintText: "Enter Username",
+                        hintText: "Ingresa tu nombre de usuario",
                         controller: userNameCtrl,
                       ),
                       const SizedBox(height: 20),
                       InputFieldWidget(
                         title: "Password",
-                        hintText: "Enter Password",
+                        hintText: "Ingresa tu contraseña",
                         controller: passCtrl,
                       ),
                       const SizedBox(height: 5),
@@ -84,11 +87,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       LoginButton(
                         child: state is AuthLoadingState
                             ? const CircularProgressIndicator(
-                                color: Colors.black)
+                                color: Colors.white)
                             : const Text(
-                                "Sign Up",
+                                "Crear Cuenta",
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -101,29 +104,29 @@ class _SignUpPageState extends State<SignUpPage> {
                           }
                         },
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 15),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
                             height: 1,
-                            width: size.width * 0.3,
+                            width: size.width * 0.25,
                             color: Colors.grey[600],
                           ),
                           Text(
-                            "Or sign in with",
+                            "O crear una cuenta con",
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                           Container(
                             height: 1,
-                            width: size.width * 0.3,
+                            width: size.width * 0.25,
                             color: Colors.grey[600],
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       const SocialMediaAuthButtons(),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       const SignUpRIchText(),
                     ],
                   ),

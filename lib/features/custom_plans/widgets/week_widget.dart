@@ -30,7 +30,7 @@ class WeekListWidget extends StatelessWidget {
                       },
                       child: WeekItemWidget(
                         index: index,
-                        day: names[index].substring(0, 2),
+                        day: names[index].substring(0, 3),
                         date: date.toLocal().toString().substring(8, 10),
                       ),
                     );
@@ -56,36 +56,33 @@ class WeekItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final weekCubit = context.watch<WeekCubit>().state;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Container(
+        height: 60,
+        width: 60,
         decoration: BoxDecoration(
-          color: weekCubit == index ? Colors.black : Colors.grey[300],
+          color: weekCubit == index ? const Color(0xffFF004D) : Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                day,
-                style: TextStyle(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              day,
+              style: TextStyle(
+                color: weekCubit == index ? Colors.white : Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            Text(
+              date,
+              style: TextStyle(
+                  fontSize: 18,
                   color: weekCubit == index ? Colors.white : Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 10),
-              CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Center(
-                    child: Text(
-                  date,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                )),
-              ),
-            ],
-          ),
+                  fontWeight: FontWeight.bold),
+            )
+          ],
         ),
       ),
     );

@@ -29,10 +29,29 @@ class _CustomoPlansPageState extends State<CustomoPlansPage>
         body: SafeArea(
       child: Column(
         children: [
-          TabBar(controller: tabController, tabs: const [
-            Tab(text: "DIetas"),
-            Tab(text: "Rutinas"),
-          ]),
+          TabBar(
+            controller: tabController,
+            dividerColor: const Color(0xffFF004D),
+            labelColor: Colors.white,
+            indicator: const BoxDecoration(color: Colors.transparent),
+            dividerHeight: 3,
+            overlayColor: MaterialStateProperty.resolveWith(
+                (states) => const Color(0xffFF004D)),
+            tabs: const [
+              Tab(
+                child: Text(
+                  "Dietas",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  "Rutinas",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
           const WeekListWidget(),
           Expanded(
             child: TabBarView(

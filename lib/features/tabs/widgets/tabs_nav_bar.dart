@@ -38,7 +38,11 @@ class NavBarItem extends StatelessWidget {
       onPressed: () {
         context.read<NavbarCubit>().changeTab(index);
       },
-      icon: Icon(icon, size: 40),
+      icon: Icon(
+        icon,
+        size: 30,
+        color: Colors.white,
+      ),
     );
   }
 }

@@ -27,7 +27,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("PERFIL"),
+        backgroundColor: const Color(0xff252935),
+        title: const Text("PERFIL", style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: [
           Padding(
@@ -41,7 +42,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   );
                 },
-                icon: const Icon(FontAwesomeIcons.penToSquare)),
+                icon: const Icon(FontAwesomeIcons.penToSquare,
+                    color: Colors.white)),
           )
         ],
       ),

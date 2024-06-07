@@ -19,7 +19,7 @@ class ExerciseCard extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 120,
-      color: Colors.white,
+      // color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -37,7 +37,7 @@ class ExerciseCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(exercise,
-                    style: const TextStyle(color: Colors.black, fontSize: 20)),
+                    style: const TextStyle(color: Colors.white, fontSize: 20)),
                 SizedBox(
                   width: 200,
                   child: Row(
@@ -45,18 +45,22 @@ class ExerciseCard extends StatelessWidget {
                     children: [
                       Text(
                         series.isNotEmpty ? series : "sin series",
-                        style: const TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       const Text("|"),
                       Text(
                         repeticiones.isNotEmpty
                             ? repeticiones
                             : "sin repeticiones",
+                        style: const TextStyle(color: Colors.white),
                       )
                     ],
                   ),
                 ),
-                Text(level)
+                Text(
+                  level,
+                  style: const TextStyle(color: Colors.white),
+                )
               ],
             ),
           ),

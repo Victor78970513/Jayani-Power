@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/core/cubit/terms_policy_cubit.dart';
 import 'package:jayani_power/core/utils/check_email.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
@@ -49,36 +50,39 @@ class _SignInPageState extends State<SignInPage> {
     formKey.currentState?.validate();
     final size = MediaQuery.of(context).size;
     final termsAndPolicyCubit = context.watch<TermsPolicyCubit>().state;
-    return Scaffold(
-      backgroundColor: const Color(0xff0E1021),
-      body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is AuthSignInFailureState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
-          }
-        },
-        builder: (context, state) {
-          return SafeArea(
-            child: Padding(
+    return SafeArea(
+      child: Scaffold(
+        // backgroundColor: const Color(0xff252935),
+        body: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthSignInFailureState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+          },
+          builder: (context, state) {
+            return Padding(
               padding: const EdgeInsets.only(top: 20),
               child: SingleChildScrollView(
                 child: Form(
                   key: formKey,
                   child: Column(
                     children: [
-                      const Text("GETTING STARTED!",
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                      const SizedBox(height: 10),
+                      SvgPicture.asset(
+                        "assets/icons/jayani_logo.svg",
+                        height: 70,
+                        width: 50,
+                      ),
+                      const SizedBox(height: 20),
                       Text(
-                        "create account to start using Jayani Power",
-                        style: TextStyle(color: Colors.grey[700], fontSize: 14),
+                        "Inicia Sesion para empezar a usar Jayani Power",
+                        style: TextStyle(color: Colors.grey[400], fontSize: 14),
                       ),
                       const SizedBox(height: 20),
                       InputFieldWidget(
                         title: "Email",
-                        hintText: "Enter Email",
+                        hintText: "Ingresa tu correoo",
                         controller: emailCtrl,
                         validator: (value) => _emailErrorText,
                         onChange: validateEmail,
@@ -86,7 +90,7 @@ class _SignInPageState extends State<SignInPage> {
                       const SizedBox(height: 20),
                       InputFieldWidget(
                         title: "Password",
-                        hintText: "Enter Password",
+                        hintText: "Ingresa tu contraseña",
                         controller: passCtrl,
                       ),
                       const SizedBox(height: 5),
@@ -113,11 +117,11 @@ class _SignInPageState extends State<SignInPage> {
                               },
                         child: state is AuthLoadingState
                             ? const CircularProgressIndicator(
-                                color: Colors.black)
+                                color: Colors.white)
                             : const Text(
-                                "Sign In",
+                                "Iniciar Sesion",
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -129,16 +133,16 @@ class _SignInPageState extends State<SignInPage> {
                           Container(
                             height: 1,
                             width: size.width * 0.3,
-                            color: Colors.grey[600],
+                            color: Colors.grey[400],
                           ),
                           Text(
-                            "Or sign in with",
-                            style: TextStyle(color: Colors.grey[600]),
+                            "O iniciar sesion con",
+                            style: TextStyle(color: Colors.grey[400]),
                           ),
                           Container(
                             height: 1,
                             width: size.width * 0.3,
-                            color: Colors.grey[600],
+                            color: Colors.grey[400],
                           ),
                         ],
                       ),
@@ -150,9 +154,9 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

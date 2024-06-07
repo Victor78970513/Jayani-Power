@@ -26,10 +26,10 @@ class InputFieldWidget extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               border: Border.all(width: 2, color: Colors.grey[600]!),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(30),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: TextFormField(
                 style: const TextStyle(color: Colors.white),
                 controller: controller,

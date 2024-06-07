@@ -67,7 +67,7 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(300, 50),
-                backgroundColor: const Color(0xffFDA3B5),
+                backgroundColor: const Color(0xffFF004D),
               ),
               onPressed: () {
                 if (state is ProfileSuccessState) {
@@ -90,10 +90,10 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
                 }
               },
               child: state is ProfileLoadingState
-                  ? const CircularProgressIndicator()
+                  ? const CircularProgressIndicator(color: Colors.white)
                   : const Text(
-                      "Guardar",
-                      style: TextStyle(color: Colors.black, fontSize: 20),
+                      "Guardar informacion",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
             ),
           ],
@@ -117,13 +117,14 @@ class EditTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            style: const TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white),
           ),
           const SizedBox(height: 10),
           Container(
@@ -132,12 +133,14 @@ class EditTextField extends StatelessWidget {
             height: 60,
             decoration: BoxDecoration(
               color: Colors.grey[350],
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(30),
             ),
-            child: TextField(
-              controller: controller,
-              keyboardType: keyboardType,
-              decoration: const InputDecoration(border: InputBorder.none),
+            child: Center(
+              child: TextField(
+                controller: controller,
+                keyboardType: keyboardType,
+                decoration: const InputDecoration(border: InputBorder.none),
+              ),
             ),
           ),
         ],

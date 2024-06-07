@@ -15,6 +15,12 @@ class TermsAndPrivacy extends StatelessWidget {
         return Row(
           children: [
             Checkbox(
+              fillColor: MaterialStateProperty.resolveWith((states) {
+                if (!states.contains(MaterialState.selected)) {
+                  return Colors.transparent;
+                }
+                return const Color(0xffFF004D);
+              }),
               value: state,
               onChanged: (value) {
                 if (value == true) {
@@ -29,25 +35,25 @@ class TermsAndPrivacy extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 text: const TextSpan(
-                    text: "I Agree with",
+                    text: "Acepto los ",
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                     children: [
                       TextSpan(
-                        text: "Terms of Service ",
+                        text: "Terminos ",
                         style: TextStyle(
-                            color: Color(0xffFDA3B5),
+                            color: Color(0xffFF004D),
                             fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
-                        text: "and ",
+                        text: "y ",
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
-                        text: "Privacy Policy",
+                        text: "Politicas de privacidad",
                         style: TextStyle(
-                            color: Color(0xffFDA3B5),
+                            color: Color(0xffFF004D),
                             fontWeight: FontWeight.bold),
                       ),
                     ]),
@@ -67,13 +73,13 @@ class SignInRIchText extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: "Not a member? ",
+        text: "Aun no tienes una cuenta? ",
         style:
             const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         children: [
           TextSpan(
-            text: "Register Now",
-            style: const TextStyle(color: Color(0xffFDA3B5)),
+            text: "Crear cuenta",
+            style: const TextStyle(color: Color(0xffFF004D)),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 Navigator.push(
@@ -95,13 +101,13 @@ class SignUpRIchText extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: "Already a member? ",
+        text: "Ya tienes una cuenta? ",
         style:
             const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         children: [
           TextSpan(
-            text: "Sign In",
-            style: const TextStyle(color: Color(0xffFDA3B5)),
+            text: "Iniciar Sesion",
+            style: const TextStyle(color: Color(0xffFF004D)),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
                 Navigator.pop(context);

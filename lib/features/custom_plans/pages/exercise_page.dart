@@ -38,10 +38,15 @@ class ExercisePage extends StatelessWidget {
             children: [
               Text(
                 "GENERANDO RUTINA.......",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white),
               ),
               SizedBox(height: 15),
-              CircularProgressIndicator(),
+              CircularProgressIndicator(
+                color: Colors.white,
+              ),
             ],
           ));
         } else if (state is CustomExerciseErrorState) {
@@ -50,7 +55,10 @@ class ExercisePage extends StatelessWidget {
             children: [
               const Text(
                 "OCURRIO UN ERROR INTENTALO DE NUEVO",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.white),
               ),
               const SizedBox(height: 15),
               ElevatedButton(
@@ -68,7 +76,10 @@ class ExercisePage extends StatelessWidget {
             children: [
               const Text(
                 "POR EL MOMENTO NO TIENES RUTINAS",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white),
               ),
               const SizedBox(height: 15),
               ElevatedButton(

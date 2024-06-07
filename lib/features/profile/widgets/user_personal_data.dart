@@ -37,13 +37,17 @@ class UserPersonalData extends StatelessWidget {
               const SizedBox(height: 15),
               Text(
                 state.user.username,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
               ),
               Text(
                 state.user.memberType,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white),
               ),
               const SizedBox(height: 30),
               Row(
@@ -75,7 +79,8 @@ class UserPersonalDataItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w500);
+    const textStyle = TextStyle(
+        fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white);
     return Column(
       children: [
         Text(text1, style: textStyle),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jayani_power/core/utils/picker_image.dart';
@@ -15,7 +17,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Editar Perfil"), centerTitle: true),
+      appBar: AppBar(
+          foregroundColor: Colors.white,
+          backgroundColor: const Color(0xff252935),
+          title: const Text(
+            "Editar Perfil",
+            style: TextStyle(color: Colors.white),
+          ),
+          centerTitle: true),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -28,31 +37,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
               child: CircleAvatar(
                 backgroundColor: Colors.amber[300],
                 radius: 60,
-                child: const Stack(
-                  children: [
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: Icon(Icons.person, size: 120),
-                    ),
-                    Positioned(
-                      top: 30,
-                      left: 0,
-                      right: 0,
-                      child: Icon(
-                        Icons.camera_alt_outlined,
-                        size: 60,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
+                child: localImage == null
+                    ? const Stack(
+                        children: [
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            child: Icon(Icons.person, size: 120),
+                          ),
+                          Positioned(
+                            top: 30,
+                            left: 0,
+                            right: 0,
+                            child: Icon(
+                              Icons.camera_alt_outlined,
+                              size: 60,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      )
+                    : ClipOval(
+                        child: Image.file(
+                        File(localImage!.path),
+                        fit: BoxFit.cover,
+                        height: 120,
+                        width: 120,
+                      )),
               ),
             ),
             EditProfileFields(
               localImage: localImage,
             ),
+            const SizedBox(height: 30),
           ],
         ),
       ),

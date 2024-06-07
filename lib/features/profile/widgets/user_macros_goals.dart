@@ -12,7 +12,8 @@ class UserMacrosGoals extends StatelessWidget {
           padding: EdgeInsets.only(left: 20),
           child: Text(
             "METAS DE MACRONUTRIENTES",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
           ),
         ),
         SizedBox(
@@ -76,13 +77,20 @@ class MacroGoalItem extends StatelessWidget {
             ),
           ),
           Text(macros,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white)),
           Text("$cantMacros",
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white)),
           const Text("Gramos por dia",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white)),
         ],
       ),
     );
