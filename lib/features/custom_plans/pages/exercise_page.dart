@@ -18,16 +18,18 @@ class ExercisePage extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: ListView.builder(
-                  itemCount: state.myRoutine[weekCubit].exercises.length,
+                  // itemCount: state.myRoutine[weekCubit].exercises.length,
+                  itemCount: 1,
                   itemBuilder: (context, index) {
-                    final exercise =
-                        state.myRoutine[weekCubit].exercises[index];
-                    return ExerciseCard(
-                      exercise: exercise.name,
-                      series: exercise.series,
-                      repeticiones: exercise.repes,
-                      level: "Beginner",
-                    );
+                    return Text("aaaaaa");
+                    // final exercise =
+                    //     state.myRoutine[weekCubit].exercises[index];
+                    // return ExerciseCard(
+                    //   exercise: exercise.name,
+                    //   series: exercise.series,
+                    //   repeticiones: exercise.repes,
+                    //   level: "Beginner",
+                    // );
                   }),
             ),
           );

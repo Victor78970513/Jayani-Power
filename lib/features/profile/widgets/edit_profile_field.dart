@@ -63,7 +63,7 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
               controller: ageCtrl,
               keyboardType: TextInputType.number,
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(300, 50),

@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jayani_power/core/utils/picker_image.dart';
+import 'package:jayani_power/core/utils/show_dialogs.dart';
 import 'package:jayani_power/features/profile/widgets/edit_profile_field.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -31,7 +31,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             GestureDetector(
               onTap: () async {
-                localImage = await pickImageFromCamera();
+                final ImageSource? option = await showPickerOptions(context);
+                localImage = await pickImage(option);
                 setState(() {});
               },
               child: CircleAvatar(

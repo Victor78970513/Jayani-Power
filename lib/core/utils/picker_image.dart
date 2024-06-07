@@ -1,9 +1,12 @@
 import 'package:image_picker/image_picker.dart';
 
-Future<XFile?> pickImageFromCamera() async {
+Future<XFile?> pickImage(ImageSource? source) async {
   try {
-    final retunedImage = await ImagePicker()
-        .pickImage(source: ImageSource.camera, imageQuality: 100);
+    if (source == null) {
+      return null;
+    }
+    final retunedImage =
+        await ImagePicker().pickImage(source: source, imageQuality: 100);
     if (retunedImage == null) return null;
     return retunedImage;
   } catch (e) {
