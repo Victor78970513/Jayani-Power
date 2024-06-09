@@ -22,11 +22,7 @@ class _DietsPageState extends State<DietsPage> {
       builder: (context, state) {
         switch (state) {
           case CustomDietSuccessState():
-            return SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: SuccessCustomDietWidget(onPressed: checkDiet),
-            );
+            return SuccessCustomDietWidget(onPressed: checkDiet);
 
           case CustomDietLoadingState():
             return const LoadingCustomDietWidget();

@@ -8,16 +8,19 @@ class TabsNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          NavBarItem(icon: Icons.home, index: 0),
-          NavBarItem(icon: FontAwesomeIcons.dumbbell, index: 1),
-          NavBarItem(icon: Icons.explore, index: 2),
-          NavBarItem(icon: Icons.person, index: 3)
-        ],
+    return Container(
+      color: const Color(0xff252935),
+      child: const Padding(
+        padding: EdgeInsets.only(bottom: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            NavBarItem(icon: Icons.home, index: 0),
+            NavBarItem(icon: FontAwesomeIcons.dumbbell, index: 1),
+            NavBarItem(icon: Icons.explore, index: 2),
+            NavBarItem(icon: Icons.person, index: 3)
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/features/custom_plans/pages/custom_plans_page.dart';
 import 'package:jayani_power/features/home/pages/home_page.dart';
@@ -15,7 +16,7 @@ class TabsPage extends StatelessWidget {
     return BlocBuilder<NavbarCubit, int>(
       builder: (context, state) {
         return Scaffold(
-          body: Column(
+          body: Stack(
             children: [
               Expanded(
                 child: IndexedStack(
@@ -28,7 +29,8 @@ class TabsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const TabsNavBar(),
+              const Align(
+                  alignment: Alignment.bottomCenter, child: TabsNavBar()),
             ],
           ),
         );

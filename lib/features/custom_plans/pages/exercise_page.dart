@@ -28,11 +28,7 @@ class _ExercisePageState extends State<ExercisePage> {
       builder: (context, state) {
         switch (state) {
           case CustomExerciseSuccessState():
-            return const SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: SuccessCustomExerciseWidget(),
-            );
+            return const SuccessCustomExerciseWidget();
           case CustomExerciseLoadingState():
             return const LoadingCustomExerciseWidget();
 
