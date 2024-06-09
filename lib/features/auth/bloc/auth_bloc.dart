@@ -23,6 +23,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<OnUserGoogleSignInEvent>(_onUserGoogleSignInEvent);
     on<OnUserFacebookSignInEvent>(_onUserFacebookSignInEvent);
     on<OnUserSignOut>(_onUserSignOut);
+    on<IsUserLoggedIn>(_isUserLoggedIn);
+  }
+
+  FutureOr<void> _isUserLoggedIn(
+      IsUserLoggedIn event, Emitter<AuthState> emit) async {
+    final response = await _authRepository.getCurrentUser();
+    if (response != null) {
+      final created = await _userRepository.createUser(
+        email: response.email ?? "sin correo",
+        username: response.displayName ?? "Sin nombre",
+        uid: response.uid,
+        createdAt: DateTime.now(),
+        updateAt: DateTime.now(),
+      );
+      if (created) {
+        Preferences().userUUID = response.uid;
+        emit(AuthSuccessState(response.uid));
+      } else {
+        emit(AuthInitial());
+      }
+    } else {
+      emit(AuthInitial());
+    }
   }
 
   FutureOr<void> _onUserSignIn(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jayani_power/models/diet_firebase_model.dart';
 
@@ -59,9 +58,17 @@ class DietCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const Spacer(),
-                      SvgPicture.asset("assets/icons/jayani_logo.svg",
-                          width: 20)
+                      // const Spacer(),
+                      // SvgPicture.asset("assets/icons/jayani_logo.svg",
+                      //     width: 20)
+                      Icon(
+                        meal.mealTime == "Desayuno"
+                            ? FontAwesomeIcons.breadSlice
+                            : meal.mealTime == "Almuerzo"
+                                ? FontAwesomeIcons.bowlRice
+                                : FontAwesomeIcons.utensils,
+                        color: const Color(0xffFF004D),
+                      )
                     ],
                   ),
                   const Divider(color: Color(0xffFF004D)),
@@ -79,11 +86,11 @@ class DietCard extends StatelessWidget {
                       const SizedBox(width: 15),
                       Icon(
                         meal.mealTime == "Desayuno"
-                            ? FontAwesomeIcons.breadSlice
+                            ? FontAwesomeIcons.appleWhole
                             : meal.mealTime == "Almuerzo"
-                                ? FontAwesomeIcons.bowlRice
-                                : FontAwesomeIcons.utensils,
-                        color: const Color(0xffFF004D),
+                                ? FontAwesomeIcons.drumstickBite
+                                : FontAwesomeIcons.bottleWater,
+                        color: Colors.white,
                       )
                     ],
                   ),

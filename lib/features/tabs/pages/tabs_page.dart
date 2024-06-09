@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/features/custom_plans/pages/custom_plans_page.dart';
 import 'package:jayani_power/features/home/pages/home_page.dart';
@@ -18,16 +17,14 @@ class TabsPage extends StatelessWidget {
         return Scaffold(
           body: Stack(
             children: [
-              Expanded(
-                child: IndexedStack(
-                  index: state,
-                  children: const [
-                    HomePage(),
-                    CustomoPlansPage(),
-                    SocialMedaPage(),
-                    ProfilePage(),
-                  ],
-                ),
+              IndexedStack(
+                index: state,
+                children: const [
+                  HomePage(),
+                  CustomoPlansPage(),
+                  SocialMedaPage(),
+                  ProfilePage(),
+                ],
               ),
               const Align(
                   alignment: Alignment.bottomCenter, child: TabsNavBar()),

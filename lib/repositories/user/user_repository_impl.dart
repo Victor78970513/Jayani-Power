@@ -79,7 +79,7 @@ class UserRepositoryImpl extends UserRepository {
         'weight': weight,
         'height': height,
         'age': age,
-        'updatedAt': DateTime.now(),
+        'updateAt': DateTime.now(),
       };
       await usersDb.collection("users").doc(uid).update(userData);
       return true;

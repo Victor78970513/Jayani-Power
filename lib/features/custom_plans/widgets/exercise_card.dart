@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/models/exercise_firebase_model.dart';
 
 class ExerciseCard extends StatelessWidget {
@@ -45,7 +42,7 @@ class ExerciseCard extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  SvgPicture.asset("assets/icons/jayani_logo.svg", width: 20)
+                  // SvgPicture.asset("assets/icons/jayani_logo.svg", width: 20)
                 ],
               ),
               const Divider(color: Color(0xffFF004D)),
@@ -90,7 +87,7 @@ class ExerciseCard extends StatelessWidget {
                     ),
                   )
                 ],
-              )
+              ),
             ],
           ),
         ),

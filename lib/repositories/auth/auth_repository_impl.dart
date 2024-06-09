@@ -8,10 +8,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:developer';
 
 class AuthRepositoryImpl extends AuthRepository {
-  // FirebaseAuth authdb = FirebaseAuth.instance;
-  final FirebaseAuth authdb;
+  FirebaseAuth authdb = FirebaseAuth.instance;
 
   AuthRepositoryImpl(this.authdb);
+
+  @override
+  Future<User?> getCurrentUser() async {
+    try {
+      return authdb.currentUser;
+    } catch (e) {
+      return null;
+    }
+  }
 
   @override
   Future<UserCredential?> loginWithEmailAndPassword(

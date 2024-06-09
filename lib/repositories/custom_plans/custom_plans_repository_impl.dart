@@ -14,6 +14,7 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
   Dio dio = Dio();
   @override
   Future<bool> generateCustomExercises() async {
+    final uid = Preferences().userUUID;
     final CollectionReference collection =
         firestore.collection("rutinas-personalizadas");
     try {
@@ -26,7 +27,7 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
       log("EMPIEZA LA CREACION EN FIREBASE");
       final created = await collection.add({
         "is_available": true,
-        "uid": Preferences().userUUID,
+        "uid": uid,
         "day_1": workOutPlan[0].toJson(),
         "day_2": workOutPlan[1].toJson(),
         "day_3": workOutPlan[2].toJson(),
@@ -42,6 +43,7 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
 
   @override
   Future<bool> generateCustomDiet() async {
+    final uid = Preferences().userUUID;
     final CollectionReference collection =
         firestore.collection("dietas-personalizadas");
     try {
@@ -54,7 +56,7 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
       log("EMPIEZA LA CREACION EN FIREBASE");
       final created = await collection.add({
         "is_available": true,
-        "uid": Preferences().userUUID,
+        "uid": uid,
         "day_1": mealPlan[0].toJson(),
         "day_2": mealPlan[1].toJson(),
         "day_3": mealPlan[2].toJson(),

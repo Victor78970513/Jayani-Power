@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/core/shared_preferences/preferences.dart';
 import 'package:jayani_power/features/custom_plans/bloc/week/week_cubit.dart';
 import 'package:jayani_power/features/custom_plans/widgets/diet_card.dart';
@@ -59,12 +61,47 @@ class SuccessCustomDietWidget extends StatelessWidget {
         });
 
         return FadeIn(
-          child: ListView.builder(
-              itemCount: mealPlan[weekCubit].meals.length,
-              itemBuilder: (context, index) {
-                final meal = mealPlan[weekCubit].meals[index];
-                return DietCard(meal: meal);
-              }),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                    itemCount: mealPlan[weekCubit].meals.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == mealPlan[weekCubit].meals.length) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Powered by ',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              const SizedBox(width: 5),
+                              SvgPicture.asset(
+                                "assets/icons/jayani_logo.svg",
+                                width: 20,
+                              ),
+                              const SizedBox(width: 5),
+                              Image.asset(
+                                "assets/icons/gpt_logo.png",
+                                width: 40,
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        final meal = mealPlan[weekCubit].meals[index];
+                        return DietCard(meal: meal);
+                      }
+                    }),
+              ),
+              const SizedBox(height: 50),
+            ],
+          ),
         );
       },
     );

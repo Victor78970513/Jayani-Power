@@ -24,3 +24,5 @@ final class OnUserGoogleSignInEvent extends AuthEvent {}
 final class OnUserFacebookSignInEvent extends AuthEvent {}
 
 final class OnUserSignOut extends AuthEvent {}
+
+final class IsUserLoggedIn extends AuthEvent {}
