@@ -5,4 +5,4 @@ sealed class CustomExerciseEvent {}
 
 final class OnGenerateCustomExercisePlanEvent extends CustomExerciseEvent {}
 
-final class OnGenerateCustomDietPlanEvent extends CustomExerciseEvent {}
+final class OnCheckUserRoutine extends CustomExerciseEvent {}

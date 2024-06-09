@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jayani_power/core/shared_preferences/preferences.dart';
 import 'package:jayani_power/repositories/auth/auth_repository.dart';
 import 'package:jayani_power/repositories/auth/auth_repository_impl.dart';
 import 'package:jayani_power/repositories/user/user_repository.dart';
@@ -41,6 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         updateAt: DateTime.now(),
       );
       if (created) {
+        Preferences().userUUID = response.user!.uid;
         emit(AuthSuccessState(response.user!.uid));
       } else {
         emit(AuthSignUpFailureState("Error al crear cuenta"));
@@ -73,6 +75,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         updateAt: DateTime.now(),
       );
       if (created) {
+        Preferences().userUUID = response.user!.uid;
         emit(AuthSuccessState(response.user!.uid));
       } else {
         emit(AuthSignUpFailureState("Error al crear cuenta"));
@@ -95,6 +98,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         updateAt: DateTime.now(),
       );
       if (created) {
+        Preferences().userUUID = response.user!.uid;
         emit(AuthSuccessState(response.user!.uid));
       } else {
         emit(AuthSignUpFailureState("Error al crear cuenta"));
@@ -121,6 +125,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         updateAt: DateTime.now(),
       );
       if (created) {
+        Preferences().userUUID = response.user!.uid;
         emit(AuthSuccessState(response.user!.uid));
       } else {
         emit(AuthSignUpFailureState("Error al crear cuenta"));

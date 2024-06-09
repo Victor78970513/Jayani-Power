@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class UserPersonalData extends StatelessWidget {
   const UserPersonalData({super.key});
@@ -66,7 +67,7 @@ class UserPersonalData extends StatelessWidget {
         if (state is ProfileErrorState) {
           return const Center(child: Text("error"));
         }
-        return const CircularProgressIndicator();
+        return LoadingAnimationWidget.inkDrop(color: Colors.white, size: 50);
       },
     );
   }

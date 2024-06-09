@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class EditProfileFields extends StatefulWidget {
   final XFile? localImage;
@@ -90,7 +91,8 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
                 }
               },
               child: state is ProfileLoadingState
-                  ? const CircularProgressIndicator(color: Colors.white)
+                  ? LoadingAnimationWidget.inkDrop(
+                      color: Colors.white, size: 50)
                   : const Text(
                       "Guardar informacion",
                       style: TextStyle(color: Colors.white, fontSize: 20),

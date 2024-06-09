@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jayani_power/features/custom_plans/bloc/custom_diet_bloc/custom_diet_bloc_bloc.dart';
+import 'package:jayani_power/features/custom_plans/bloc/custom_exercise_bloc/custom_exercise_bloc.dart';
 import 'package:jayani_power/features/custom_plans/pages/diets_page.dart';
 import 'package:jayani_power/features/custom_plans/pages/exercise_page.dart';
 import 'package:jayani_power/features/custom_plans/widgets/week_widget.dart';
@@ -15,6 +18,8 @@ class _CustomoPlansPageState extends State<CustomoPlansPage>
   late TabController tabController;
   @override
   void initState() {
+    context.read<CustomExerciseBloc>().add(OnCheckUserRoutine());
+    context.read<CustomDietBloc>().add(OnCheckUserDiet());
     tabController = TabController(length: 2, vsync: this);
     tabController.addListener(() {
       setState(() {});
@@ -31,12 +36,21 @@ class _CustomoPlansPageState extends State<CustomoPlansPage>
         children: [
           TabBar(
             controller: tabController,
-            dividerColor: const Color(0xffFF004D),
+            dividerColor: const Color(0xffCEB2C1),
             labelColor: Colors.white,
-            indicator: const BoxDecoration(color: Colors.transparent),
+            indicator: const BoxDecoration(
+              color: Colors.transparent,
+              border: Border(
+                bottom: BorderSide(
+                  color: Color(0xffFF004D),
+                  width: 3,
+                ),
+              ),
+            ),
             dividerHeight: 3,
             overlayColor: MaterialStateProperty.resolveWith(
                 (states) => const Color(0xffFF004D)),
+            unselectedLabelColor: const Color(0xffCEB2C1),
             tabs: const [
               Tab(
                 child: Text(

@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:jayani_power/core/constants/gpt_prompt.dart';
-import 'package:jayani_power/models/custom_exercises_model.dart';
 import 'package:jayani_power/repositories/custom_plans/custom_plans_repository.dart';
 import 'package:jayani_power/repositories/custom_plans/custom_plans_repository_impl.dart';
 
@@ -17,33 +15,29 @@ class CustomExerciseBloc
     _customPlanRepository = CustomPLansRepositoryImpl();
     //
     on<OnGenerateCustomExercisePlanEvent>(_onGenerateCustomExercisePlanEvent);
-    // on<OnGenerateCustomDietPlanEvent>(_onGenerateCustomDietPlanEvent);
+    on<OnCheckUserRoutine>(_onCheckUserRoutine);
   }
 
   FutureOr<void> _onGenerateCustomExercisePlanEvent(
       OnGenerateCustomExercisePlanEvent event,
       Emitter<CustomExerciseState> emit) async {
     emit(CustomExerciseLoadingState());
-    final prompt = GptPromtConstats.customExercise();
-    final response =
-        await _customPlanRepository.generateCustomExercises(prompt);
-    if (response == null) {
+    final response = await _customPlanRepository.generateCustomExercises();
+    if (response == false) {
       emit(CustomExerciseErrorState());
     } else {
-      emit(CustomExerciseSuccessState(myRoutine: response));
+      emit(CustomExerciseSuccessState());
     }
   }
 
-  // FutureOr<void> _onGenerateCustomDietPlanEvent(
-  //     OnGenerateCustomDietPlanEvent event,
-  //     Emitter<CustomPlansState> emit) async {
-  //   emit(CustomPlansDietLoadingState());
-  //   final prompt = GptPromtConstats.customDiet();
-  //   final response = await _customPlanRepository.generateCustomDiet(prompt);
-  //   if (response == null) {
-  //     emit(CustomPlansDietErrorState());
-  //   } else {
-  //     emit(CustomPlansDietSuccessState(myDiet: response));
-  //   }
-  // }
+  FutureOr<void> _onCheckUserRoutine(
+      OnCheckUserRoutine event, Emitter<CustomExerciseState> emit) async {
+    emit(CustomExerciseLoadingState());
+    final response = await _customPlanRepository.checkUserRoutine();
+    if (response == false) {
+      emit(CustomPlansInitial());
+    } else {
+      emit(CustomExerciseSuccessState());
+    }
+  }
 }

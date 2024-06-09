@@ -6,6 +6,7 @@ import 'package:jayani_power/features/auth/widgets/input_field.dart';
 import 'package:jayani_power/features/auth/widgets/login_button.dart';
 import 'package:jayani_power/features/auth/widgets/social_media_auth_buttons.dart';
 import 'package:jayani_power/features/auth/widgets/rich_texts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -86,8 +87,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       const SizedBox(height: 10),
                       LoginButton(
                         child: state is AuthLoadingState
-                            ? const CircularProgressIndicator(
-                                color: Colors.white)
+                            ? LoadingAnimationWidget.inkDrop(
+                                color: Colors.white, size: 35)
                             : const Text(
                                 "Crear Cuenta",
                                 style: TextStyle(

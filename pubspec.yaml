@@ -45,6 +45,9 @@ dependencies:
   firebase_storage: ^11.7.6
   flutter_dotenv: ^5.1.0
   flutter_svg: ^2.0.10+1
+  shared_preferences: ^2.2.3
+  animate_do: ^3.3.4
+  loading_animation_widget: ^1.2.1
   http: ^1.2.1
 
 dev_dependencies:

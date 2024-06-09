@@ -1,70 +1,99 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jayani_power/models/exercise_firebase_model.dart';
 
 class ExerciseCard extends StatelessWidget {
-  final String exercise;
-  final String series;
-  final String repeticiones;
-  final String level;
+  final Exercise exercise;
+  final String group;
 
   const ExerciseCard({
     super.key,
     required this.exercise,
-    required this.series,
-    required this.repeticiones,
-    required this.level,
+    required this.group,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 120,
-      // color: Colors.white,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                color: const Color(0xffFDA3B5),
-                borderRadius: BorderRadius.circular(20)),
-            width: 90,
-            child: Image.asset("assets/icons/google_icon.png"),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(exercise,
-                    style: const TextStyle(color: Colors.white, fontSize: 20)),
-                SizedBox(
-                  width: 200,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        series.isNotEmpty ? series : "sin series",
-                        style: const TextStyle(color: Colors.white),
+    final size = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xff43444A),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: size.width * 0.8,
+                    child: Text(
+                      exercise.sett,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
-                      const Text("|"),
-                      Text(
-                        repeticiones.isNotEmpty
-                            ? repeticiones
-                            : "sin repeticiones",
-                        style: const TextStyle(color: Colors.white),
-                      )
-                    ],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                Text(
-                  level,
-                  style: const TextStyle(color: Colors.white),
-                )
-              ],
-            ),
+                  const Spacer(),
+                  SvgPicture.asset("assets/icons/jayani_logo.svg", width: 20)
+                ],
+              ),
+              const Divider(color: Color(0xffFF004D)),
+              Text(
+                exercise.description,
+                style: const TextStyle(color: Colors.white),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Text(exercise.series,
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                  const SizedBox(width: 10),
+                  Container(
+                    width: 2,
+                    height: 20,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 10),
+                  Text(
+                    exercise.reps,
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(width: 10),
+                  Container(
+                    width: 2,
+                    height: 20,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      group,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

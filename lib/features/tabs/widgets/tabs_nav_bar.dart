@@ -15,7 +15,7 @@ class TabsNavBar extends StatelessWidget {
         children: [
           NavBarItem(icon: Icons.home, index: 0),
           NavBarItem(icon: FontAwesomeIcons.dumbbell, index: 1),
-          NavBarItem(icon: Icons.camera_alt, index: 2),
+          NavBarItem(icon: Icons.explore, index: 2),
           NavBarItem(icon: Icons.person, index: 3)
         ],
       ),
@@ -34,6 +34,7 @@ class NavBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navBarCubit = context.watch<NavbarCubit>().state;
     return IconButton(
       onPressed: () {
         context.read<NavbarCubit>().changeTab(index);
@@ -41,7 +42,7 @@ class NavBarItem extends StatelessWidget {
       icon: Icon(
         icon,
         size: 30,
-        color: Colors.white,
+        color: navBarCubit == index ? const Color(0xffFF004D) : Colors.white,
       ),
     );
   }

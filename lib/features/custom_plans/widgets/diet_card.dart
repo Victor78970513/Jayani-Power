@@ -1,37 +1,211 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jayani_power/models/diet_firebase_model.dart';
 
 class DietCard extends StatelessWidget {
-  final String plate;
-  final int kcal;
-  final int preparingTimeMinutes;
-  const DietCard(
-      {super.key,
-      required this.plate,
-      required this.kcal,
-      required this.preparingTimeMinutes});
+  final Meal meal;
+  const DietCard({
+    super.key,
+    required this.meal,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final size = MediaQuery.of(context).size;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            plate,
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("$kcal kcal"),
-              SizedBox(
-                width: 5,
+          Container(
+            decoration: BoxDecoration(
+                color: const Color(0xffFF004D),
+                borderRadius: BorderRadius.circular(15)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                meal.mealTime,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
-              Text("$preparingTimeMinutes minutos")
-            ],
-          )
+            ),
+          ),
+          const SizedBox(height: 15),
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff43444A),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.8,
+                        child: Text(
+                          "${meal.name} ",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const Spacer(),
+                      SvgPicture.asset("assets/icons/jayani_logo.svg",
+                          width: 20)
+                    ],
+                  ),
+                  const Divider(color: Color(0xffFF004D)),
+                  Text(meal.description,
+                      style: const TextStyle(color: Colors.white)),
+                  const SizedBox(height: 5),
+                  const Divider(color: Color(0xffFF004D)),
+                  Row(
+                    children: [
+                      const Text(
+                        "Ingredientes: ",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(width: 15),
+                      Icon(
+                        meal.mealTime == "Desayuno"
+                            ? FontAwesomeIcons.breadSlice
+                            : meal.mealTime == "Almuerzo"
+                                ? FontAwesomeIcons.bowlRice
+                                : FontAwesomeIcons.utensils,
+                        color: const Color(0xffFF004D),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  ...List.generate(meal.ingredients.length, (index) {
+                    final ingredient = meal.ingredients[index];
+                    return Text(
+                      "   •   ${ingredient.name}  -  ${ingredient.quantity}",
+                      style: const TextStyle(color: Colors.white),
+                    );
+                  }),
+                  const Divider(color: Color(0xffFF004D)),
+                  const Text(
+                    "Macronutrientes:",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 10),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ...List.generate(meal.macros.vitamins.length, (index) {
+                          final vitamin = meal.macros.vitamins[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffCEB2C1),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Vitamina $vitamin",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ...List.generate(meal.macros.minerals.length, (index) {
+                          final mineral = meal.macros.minerals[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: const Color(0xffCEB2C1),
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Mineral: $mineral",
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: const Color(0xffCEB2C1),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 6, horizontal: 15),
+                            child: Text(
+                              "Calorias: ${meal.macros.calories}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: const Color(0xffCEB2C1),
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 15),
+                            child: Text(
+                              "Proteinas: ${meal.macros.proteins}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

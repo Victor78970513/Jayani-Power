@@ -4,3 +4,5 @@ part of 'custom_diet_bloc_bloc.dart';
 sealed class CustomDietEvent {}
 
 final class OnGetCustomDietEvent extends CustomDietEvent {}
+
+final class OnCheckUserDiet extends CustomDietEvent {}

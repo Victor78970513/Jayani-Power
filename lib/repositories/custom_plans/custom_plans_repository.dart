@@ -1,8 +1,9 @@
-import 'package:jayani_power/models/custom_diet_model.dart';
-import 'package:jayani_power/models/custom_exercises_model.dart';
-
 abstract class CustomPlansRepository {
-  Future<List<CustomExercisesModel>?> generateCustomExercises(String prompt);
+  Future<bool> generateCustomExercises();
 
-  Future<List<CustomDietModel>?> generateCustomDiet(String prompt);
+  Future<bool> generateCustomDiet();
+
+  Future<bool> checkUserRoutine();
+
+  Future<bool> checkUserDiet();
 }
