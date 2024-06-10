@@ -69,7 +69,7 @@ class SuccessCustomDietWidget extends StatelessWidget {
                     itemBuilder: (context, index) {
                       if (index == mealPlan[weekCubit].meals.length) {
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(bottom: 16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -99,7 +99,7 @@ class SuccessCustomDietWidget extends StatelessWidget {
                       }
                     }),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 80),
             ],
           ),
         );
