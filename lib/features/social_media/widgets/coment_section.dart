@@ -5,13 +5,13 @@ import 'package:jayani_power/features/social_media/widgets/coment_card.dart';
 class CommentsSection extends StatelessWidget {
   final String postId;
 
-  CommentsSection({required this.postId});
+  const CommentsSection({super.key, required this.postId});
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
-          .collection('publicacioones')
+          .collection('publicaciones')
           .doc(postId)
           .collection('comentarios')
           .snapshots(),
@@ -21,11 +21,11 @@ class CommentsSection extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
 
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return Text('No hay comentarios.');
+          return const Text('No hay comentarios.');
         }
 
         return Column(

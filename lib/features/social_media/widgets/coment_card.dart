@@ -4,23 +4,22 @@ import 'package:flutter/material.dart';
 class CommentCard extends StatelessWidget {
   final QueryDocumentSnapshot comment;
 
-  CommentCard({required this.comment});
+  const CommentCard({super.key, required this.comment});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               comment['content'],
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 5),
-            Text('Likes: ${comment['likes']}'),
+            const SizedBox(height: 5),
           ],
         ),
       ),
