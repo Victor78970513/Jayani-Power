@@ -79,6 +79,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       OnUserSignOut event, Emitter<AuthState> emit) async {
     final response = await _authRepository.signOut();
     if (response) {
+      Preferences().userUUID = "";
       emit(AuthInitial());
     } else {
       emit(AuthSignInFailureState("Error al cerrar sesion"));

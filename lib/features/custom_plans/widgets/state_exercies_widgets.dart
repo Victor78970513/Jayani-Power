@@ -1,9 +1,9 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/core/shared_preferences/preferences.dart';
+import 'package:jayani_power/features/custom_plans/bloc/custom_exercise_bloc/custom_exercise_bloc.dart';
 import 'package:jayani_power/features/custom_plans/bloc/week/week_cubit.dart';
 import 'package:jayani_power/features/custom_plans/widgets/exercise_card.dart';
 import 'package:jayani_power/models/exercise_firebase_model.dart';
@@ -11,7 +11,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SuccessCustomExerciseWidget extends StatelessWidget {
-  const SuccessCustomExerciseWidget({super.key});
+  final VoidCallback onPressed;
+  const SuccessCustomExerciseWidget({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +31,28 @@ class SuccessCustomExerciseWidget extends StatelessWidget {
             return const Center(child: Text('Error fetching data'));
           }
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text('No data found'));
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Hubo un error buscando tu dieta",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.white),
+                  ),
+                  const SizedBox(height: 15),
+                  ElevatedButton(
+                    onPressed: onPressed,
+                    child: const Text("BUSCAR SI TIENES ALGUNA DIETA"),
+                  )
+                ],
+              ),
+            );
           }
           final documentSnapshot = snapshot.data!.docs.first;
           final Map<String, dynamic> data = documentSnapshot.data();
-          log(data.toString());
           final List<WorkoutDay> workOutPlan = [];
           data.forEach((key, value) {
             if (key.startsWith('day_')) {
@@ -49,12 +67,28 @@ class SuccessCustomExerciseWidget extends StatelessWidget {
                       const SizedBox(height: 15),
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
-                        child: Text(
-                          "DURACION DE LA RUTINA: ${workOutPlan[weekCubit].duration}",
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                        child: Row(
+                          children: [
+                            Text(
+                              "DURACION: ${workOutPlan[weekCubit].duration}",
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                                onPressed: () {
+                                  context.read<CustomExerciseBloc>().add(
+                                      OnDeleteUserRoutine(
+                                          snapshot.data!.docs.first.id));
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Color(0xffFF004D),
+                                  size: 40,
+                                ))
+                          ],
                         ),
                       ),
                       Expanded(

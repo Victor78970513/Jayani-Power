@@ -19,7 +19,7 @@ class _ExercisePageState extends State<ExercisePage> {
   void getGptRoutine() => context
       .read<CustomExerciseBloc>()
       .add(OnGenerateCustomExercisePlanEvent());
-  void checkDiet() =>
+  void checkRoutine() =>
       context.read<CustomExerciseBloc>().add(OnCheckUserRoutine());
 
   @override
@@ -28,7 +28,7 @@ class _ExercisePageState extends State<ExercisePage> {
       builder: (context, state) {
         switch (state) {
           case CustomExerciseSuccessState():
-            return const SuccessCustomExerciseWidget();
+            return SuccessCustomExerciseWidget(onPressed: checkRoutine);
           case CustomExerciseLoadingState():
             return const LoadingCustomExerciseWidget();
 

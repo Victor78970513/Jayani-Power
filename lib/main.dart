@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => NavbarCubit()),
         BlocProvider(create: (context) => ProfileBloc()),
         BlocProvider(create: (context) => CustomExerciseBloc()),
-        BlocProvider(create: (context) => CustomDietBloc())
+        BlocProvider(create: (context) => CustomDietBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -16,6 +16,7 @@ class CustomExerciseBloc
     //
     on<OnGenerateCustomExercisePlanEvent>(_onGenerateCustomExercisePlanEvent);
     on<OnCheckUserRoutine>(_onCheckUserRoutine);
+    on<OnDeleteUserRoutine>(_onDeleteUserRoutine);
   }
 
   FutureOr<void> _onGenerateCustomExercisePlanEvent(
@@ -38,6 +39,17 @@ class CustomExerciseBloc
       emit(CustomPlansInitial());
     } else {
       emit(CustomExerciseSuccessState());
+    }
+  }
+
+  FutureOr<void> _onDeleteUserRoutine(
+      OnDeleteUserRoutine event, Emitter<CustomExerciseState> emit) async {
+    emit(CustomExerciseLoadingState());
+    final response = await _customPlanRepository.deleteRoutine(event.routineId);
+    if (response == false) {
+      emit(CustomExerciseSuccessState());
+    } else {
+      emit(CustomPlansInitial());
     }
   }
 }

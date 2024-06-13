@@ -47,12 +47,17 @@ class _ProfilePageState extends State<ProfilePage> {
           )
         ],
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           children: [
-            UserPersonalData(),
-            SizedBox(height: 30),
-            UserMacrosGoals(),
+            const UserPersonalData(),
+            const SizedBox(height: 30),
+            const UserMacrosGoals(),
+            ElevatedButton(
+                onPressed: () {
+                  context.read<AuthBloc>().add(OnUserSignOut());
+                },
+                child: const Text("CERRAR SESION"))
           ],
         ),
       ),

@@ -6,4 +6,6 @@ abstract class CustomPlansRepository {
   Future<bool> checkUserRoutine();
 
   Future<bool> checkUserDiet();
+
+  Future<bool> deleteRoutine(String routineId);
 }

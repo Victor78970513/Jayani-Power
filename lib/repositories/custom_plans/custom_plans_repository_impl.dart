@@ -24,6 +24,7 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
       List<WorkoutDay> workOutPlan = (jsonParser as List)
           .map((data) => WorkoutDay.fromJson(data))
           .toList();
+      log(response.data.toString());
       log("EMPIEZA LA CREACION EN FIREBASE");
       final created = await collection.add({
         "is_available": true,
@@ -123,5 +124,19 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
             }
           ]
         });
+  }
+
+  @override
+  Future<bool> deleteRoutine(String routineId) async {
+    final CollectionReference collection =
+        firestore.collection("rutinas-personalizadas");
+    try {
+      await collection.doc(routineId).update({
+        "is_available": false,
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
