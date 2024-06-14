@@ -19,8 +19,8 @@ class PostHeader extends StatelessWidget {
               return Image.asset(
                 "assets/loaders/gym_loading.gif",
                 fit: BoxFit.cover,
-                width: 120.0,
-                height: 120.0,
+                width: 40.0,
+                height: 40.0,
               );
             },
             fit: BoxFit.cover,

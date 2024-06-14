@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jayani_power/core/utils/check_email.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/auth/widgets/input_field.dart';
 import 'package:jayani_power/features/auth/widgets/login_button.dart';
@@ -20,6 +21,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController userNameCtrl = TextEditingController();
   final TextEditingController passCtrl = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  String? _emailErrorText;
+  String? _passwordErrorText;
 
   @override
   void dispose() {
@@ -27,6 +30,39 @@ class _SignUpPageState extends State<SignUpPage> {
     userNameCtrl.dispose();
     passCtrl.dispose();
     super.dispose();
+  }
+
+  void validateEmail(String value) {
+    if (value.isEmpty) {
+      setState(() {
+        _emailErrorText = 'El correo es requerido';
+      });
+    } else if (!isEmailValid(value)) {
+      setState(() {
+        _emailErrorText = 'Enter a valid email address';
+      });
+    } else {
+      setState(() {
+        _emailErrorText = null;
+      });
+    }
+  }
+
+  void validatePassword(String value) {
+    if (value.isEmpty) {
+      setState(() {
+        _passwordErrorText = "La contrasenia es requerida";
+      });
+    } else if (value.length < 6) {
+      setState(() {
+        _passwordErrorText =
+            "La contrasenia debe tener por lo menos 6 caracteres";
+      });
+    } else {
+      setState(() {
+        _passwordErrorText = null;
+      });
+    }
   }
 
   @override
@@ -69,6 +105,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         title: "Email",
                         hintText: "Ingresa tu correo",
                         controller: emailCtrl,
+                        validator: (value) => _emailErrorText,
+                        onChange: validateEmail,
                       ),
                       const SizedBox(height: 20),
                       InputFieldWidget(
@@ -81,6 +119,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         title: "Password",
                         hintText: "Ingresa tu contraseña",
                         controller: passCtrl,
+                        validator: (value) => _passwordErrorText,
+                        onChange: validatePassword,
                       ),
                       const SizedBox(height: 5),
                       const TermsAndPrivacy(),

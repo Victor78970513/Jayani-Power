@@ -11,6 +11,7 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+  UserModel? userModel;
   late UserRepository _userRepository;
   ProfileBloc() : super(ProfileInitial()) {
     _userRepository = UserRepositoryImpl();
@@ -25,6 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(ProfileLoadingState());
     final user = await _userRepository.getUserData(event.userID);
     if (user != null) {
+      userModel = user;
       emit(ProfileSuccessState(user));
     } else {
       emit(ProfileErrorState());

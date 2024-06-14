@@ -22,6 +22,7 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController passCtrl = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String? _emailErrorText;
+  String? _passwordErrorText;
 
   @override
   void dispose() {
@@ -33,7 +34,7 @@ class _SignInPageState extends State<SignInPage> {
   void validateEmail(String value) {
     if (value.isEmpty) {
       setState(() {
-        _emailErrorText = 'Email is required';
+        _emailErrorText = 'El correo es requerido';
       });
     } else if (!isEmailValid(value)) {
       setState(() {
@@ -42,6 +43,23 @@ class _SignInPageState extends State<SignInPage> {
     } else {
       setState(() {
         _emailErrorText = null;
+      });
+    }
+  }
+
+  void validatePassword(String value) {
+    if (value.isEmpty) {
+      setState(() {
+        _passwordErrorText = "La contrasenia es requerida";
+      });
+    } else if (value.length < 6) {
+      setState(() {
+        _passwordErrorText =
+            "La contrasenia debe tener por lo menos 6 caracteres";
+      });
+    } else {
+      setState(() {
+        _passwordErrorText = null;
       });
     }
   }
@@ -93,6 +111,8 @@ class _SignInPageState extends State<SignInPage> {
                         title: "Password",
                         hintText: "Ingresa tu contraseña",
                         controller: passCtrl,
+                        validator: (value) => _passwordErrorText,
+                        onChange: validatePassword,
                       ),
                       const SizedBox(height: 5),
                       const TermsAndPrivacy(),

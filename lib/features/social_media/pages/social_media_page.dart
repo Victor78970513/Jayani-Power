@@ -2,16 +2,33 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
+import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
+import 'package:jayani_power/features/social_media/pages/create_post_page.dart';
 import 'package:jayani_power/features/social_media/widgets/post_card.dart';
 import 'package:jayani_power/models/post_firebase_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class SocialMedaPage extends StatelessWidget {
+class SocialMedaPage extends StatefulWidget {
   const SocialMedaPage({super.key});
 
   @override
+  State<SocialMedaPage> createState() => _SocialMedaPageState();
+}
+
+class _SocialMedaPageState extends State<SocialMedaPage> {
+  @override
+  void initState() {
+    final userID = context.read<AuthBloc>().state as AuthSuccessState;
+    context.read<ProfileBloc>().add(OnGetProfileEvent(userID.uid));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final profileBloc = context.watch<ProfileBloc>();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -26,7 +43,9 @@ class SocialMedaPage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                createPost(context: context, user: profileBloc.userModel);
+              },
               icon: const Icon(
                 FontAwesomeIcons.edit,
                 color: Colors.white,
@@ -64,12 +83,15 @@ class SocialMedaPage extends StatelessWidget {
                     postfirebaseList
                         .add(PostFirebaseModel.fromJson(data, doc.id));
                   }
-                  return ListView.builder(
-                      itemCount: postfirebaseList.length,
-                      itemBuilder: (context, index) {
-                        final postCard = postfirebaseList[index];
-                        return PostCard(post: postCard);
-                      });
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 50),
+                    child: ListView.builder(
+                        itemCount: postfirebaseList.length,
+                        itemBuilder: (context, index) {
+                          final postCard = postfirebaseList[index];
+                          return PostCard(post: postCard);
+                        }),
+                  );
                 },
               ),
             )
