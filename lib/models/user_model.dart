@@ -1,44 +1,54 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  final String uid;
-  final String email;
   final String username;
-  final String profilePictureUrl;
+  final String email;
   final DateTime createdAt;
-  final DateTime updateAt;
-  final bool publicProfile;
-  final String weight;
-  final String height;
-  final String age;
+  final DateTime updatedAt;
+  final String uid;
+  final String gender;
+  final double weight;
+  final double height;
   final String memberType;
+  final String physicalLimitations;
+  final String foodRestrictions;
+  final String profilePictureUrl;
+  final String goal;
+  final int age;
 
   UserModel({
-    required this.uid,
-    required this.email,
     required this.username,
-    required this.profilePictureUrl,
+    required this.email,
     required this.createdAt,
-    required this.updateAt,
-    required this.publicProfile,
+    required this.updatedAt,
+    required this.uid,
+    required this.gender,
     required this.weight,
     required this.height,
-    required this.age,
     required this.memberType,
+    required this.physicalLimitations,
+    required this.foodRestrictions,
+    required this.profilePictureUrl,
+    required this.goal,
+    required this.age,
   });
+
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      uid: map['uid'] ?? '',
-      email: map['email'] ?? '',
-      username: map['username'] ?? '',
-      profilePictureUrl: map['profilePictureUrl'] ?? '',
-      createdAt: (map['createdAt'] as Timestamp).toDate(),
-      updateAt: (map['updateAt'] as Timestamp).toDate(),
-      publicProfile: map['publicProfile'] ?? false,
-      weight: map['weight'].toString(),
-      height: map['height'].toString(),
-      age: map['age'].toString(),
-      memberType: map['memberType'],
+      username: map["username"],
+      email: map["email"],
+      createdAt: (map["createdAt"] as Timestamp).toDate(),
+      updatedAt: (map["updatedAt"] as Timestamp).toDate(),
+      uid: map["uid"],
+      gender: map["gender"],
+      weight: double.parse(map["weight"].toString()),
+      height: (double.parse(map["height"].toString())),
+      memberType: map["memberType"],
+      physicalLimitations: map["physicalLimitations"],
+      foodRestrictions: map["foodRestrictions"],
+      profilePictureUrl: map["profilePictureUrl"],
+      goal: map["goal"],
+      age: map["age"],
     );
   }
 }

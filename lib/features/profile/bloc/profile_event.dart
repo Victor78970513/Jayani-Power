@@ -10,25 +10,27 @@ final class OnGetProfileEvent extends ProfileEvent {
 }
 
 final class OnEditProfileEvent extends ProfileEvent {
-  final String uid;
-  final String email;
   final String username;
-  final String profilePictureUrl;
-  final XFile? localImage;
-  final bool publicProfile;
+  // final String email;
   final double weight;
   final double height;
-  final int age;
+  final String physicalLimitations;
+  final String foodRestrictions;
+  final String profilePictureUrl;
+  final XFile? localImage;
+  final String goal;
+  final String uid;
 
   OnEditProfileEvent({
-    required this.uid,
-    required this.email,
     required this.username,
-    required this.profilePictureUrl,
-    this.localImage,
-    required this.publicProfile,
+    // required this.email,
     required this.weight,
     required this.height,
-    required this.age,
+    required this.physicalLimitations,
+    required this.foodRestrictions,
+    required this.profilePictureUrl,
+    this.localImage,
+    required this.goal,
+    required this.uid,
   });
 }

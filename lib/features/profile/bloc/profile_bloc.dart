@@ -40,13 +40,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final image = await _userRepository.updateProfileImage(event.localImage!);
       final response = await _userRepository.updateUserData(
         uid: event.uid,
-        email: event.email,
         username: event.username,
         profilePictureUrl: image,
-        publicProfile: event.publicProfile,
         weight: event.weight,
         height: event.height,
-        age: event.age,
+        physicalLimitatioons: event.physicalLimitations,
+        foodRestrictions: event.foodRestrictions,
+        goal: event.goal,
       );
       if (response) {
         add(OnGetProfileEvent(event.uid));
@@ -56,13 +56,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } else {
       final response = await _userRepository.updateUserData(
         uid: event.uid,
-        email: event.email,
         username: event.username,
         profilePictureUrl: event.profilePictureUrl,
-        publicProfile: event.publicProfile,
         weight: event.weight,
         height: event.height,
-        age: event.age,
+        physicalLimitatioons: event.physicalLimitations,
+        foodRestrictions: event.foodRestrictions,
+        goal: event.goal,
       );
       if (response) {
         add(OnGetProfileEvent(event.uid));

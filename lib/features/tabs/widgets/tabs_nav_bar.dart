@@ -8,11 +8,10 @@ class TabsNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xff252935),
-      child: const Padding(
-        padding: EdgeInsets.only(bottom: 20),
-        child: Row(
+    return SafeArea(
+      child: Container(
+        color: const Color(0xff252935),
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             NavBarItem(icon: Icons.home, index: 0),

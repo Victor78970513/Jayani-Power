@@ -61,6 +61,7 @@ class _SocialMedaPageState extends State<SocialMedaPage> {
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('publicaciones')
+                    .orderBy("createdAt", descending: true)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {

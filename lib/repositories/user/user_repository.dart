@@ -12,14 +12,14 @@ abstract class UserRepository {
   Future<UserModel?> getUserData(String uid);
 
   Future<bool> updateUserData({
-    required String uid,
-    required String email,
     required String username,
-    required String profilePictureUrl,
-    required bool publicProfile,
     required double weight,
     required double height,
-    required int age,
+    required String physicalLimitatioons,
+    required String foodRestrictions,
+    required String profilePictureUrl,
+    required String goal,
+    required String uid,
   });
 
   Future<String> updateProfileImage(XFile imagePath);

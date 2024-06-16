@@ -10,6 +10,7 @@ import 'package:jayani_power/features/custom_plans/bloc/custom_diet_bloc/custom_
 import 'package:jayani_power/features/custom_plans/bloc/custom_exercise_bloc/custom_exercise_bloc.dart';
 import 'package:jayani_power/features/custom_plans/bloc/week/week_cubit.dart';
 import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
+import 'package:jayani_power/features/social_media/bloc/create_post/create_post_bloc.dart';
 import 'package:jayani_power/features/tabs/cubit/navbar_cubit.dart';
 import 'package:jayani_power/firebase_options.dart';
 import 'package:jayani_power/splash_screen.dart';
@@ -54,6 +55,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ProfileBloc()),
         BlocProvider(create: (context) => CustomExerciseBloc()),
         BlocProvider(create: (context) => CustomDietBloc()),
+        BlocProvider(create: (context) => CreatePostBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

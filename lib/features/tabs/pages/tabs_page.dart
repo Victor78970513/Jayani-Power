@@ -16,6 +16,7 @@ class TabsPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: Stack(
+            fit: StackFit.expand,
             children: [
               IndexedStack(
                 index: state,
@@ -27,7 +28,9 @@ class TabsPage extends StatelessWidget {
                 ],
               ),
               const Align(
-                  alignment: Alignment.bottomCenter, child: TabsNavBar()),
+                alignment: Alignment.bottomCenter,
+                child: TabsNavBar(),
+              ),
             ],
           ),
         );

@@ -15,19 +15,21 @@ class EditProfileFields extends StatefulWidget {
 
 class _EditProfileFieldsState extends State<EditProfileFields> {
   final TextEditingController nameCtrl = TextEditingController();
-  final TextEditingController emailCtrl = TextEditingController();
   final TextEditingController weightCtrl = TextEditingController();
   final TextEditingController heightCtrl = TextEditingController();
-  final TextEditingController ageCtrl = TextEditingController();
+  final TextEditingController physicalCtrl = TextEditingController();
+  final TextEditingController foodResCtrl = TextEditingController();
+  final TextEditingController goalCtrl = TextEditingController();
+
   @override
   void initState() {
     final profileBloc =
         context.read<ProfileBloc>().state as ProfileSuccessState;
     nameCtrl.text = profileBloc.user.username;
-    emailCtrl.text = profileBloc.user.email;
-    weightCtrl.text = profileBloc.user.weight;
-    heightCtrl.text = profileBloc.user.height;
-    ageCtrl.text = profileBloc.user.age;
+    weightCtrl.text = profileBloc.user.weight.toString();
+    heightCtrl.text = profileBloc.user.height.toString();
+    physicalCtrl.text = profileBloc.user.physicalLimitations;
+    foodResCtrl.text = profileBloc.user.foodRestrictions;
     super.initState();
   }
 
@@ -48,7 +50,6 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
         return Column(
           children: [
             EditTextField(title: "Nombre Completo", controller: nameCtrl),
-            EditTextField(title: "Correo electronico", controller: emailCtrl),
             EditTextField(
               title: "Peso",
               controller: weightCtrl,
@@ -60,9 +61,16 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
               keyboardType: TextInputType.number,
             ),
             EditTextField(
-              title: "Edad",
-              controller: ageCtrl,
-              keyboardType: TextInputType.number,
+              title: "Restricciones Fisicas",
+              controller: physicalCtrl,
+            ),
+            EditTextField(
+              title: "Restricciones Alimenticias",
+              controller: foodResCtrl,
+            ),
+            EditTextField(
+              title: "Objetivo",
+              controller: goalCtrl,
             ),
             const SizedBox(height: 30),
             ElevatedButton(
@@ -73,15 +81,14 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
               onPressed: () {
                 if (state is ProfileSuccessState) {
                   context.read<ProfileBloc>().add(OnEditProfileEvent(
-                        uid: state.user.uid,
-                        email: emailCtrl.text,
                         username: nameCtrl.text,
-                        localImage: widget.localImage,
-                        profilePictureUrl: state.user.profilePictureUrl,
-                        publicProfile: state.user.publicProfile,
                         weight: double.parse(weightCtrl.text),
                         height: double.parse(heightCtrl.text),
-                        age: int.parse(ageCtrl.text),
+                        physicalLimitations: '',
+                        foodRestrictions: '',
+                        profilePictureUrl: state.user.profilePictureUrl,
+                        goal: '',
+                        uid: state.user.uid,
                       ));
                 } else {
                   final authBloc = AuthBloc().state as AuthSuccessState;

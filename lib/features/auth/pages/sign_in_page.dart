@@ -71,7 +71,6 @@ class _SignInPageState extends State<SignInPage> {
     final termsAndPolicyCubit = context.watch<TermsPolicyCubit>().state;
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: const Color(0xff252935),
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthSignInFailureState) {
@@ -120,6 +119,8 @@ class _SignInPageState extends State<SignInPage> {
                       LoginButton(
                         onTap: termsAndPolicyCubit
                             ? () {
+                                validateEmail(emailCtrl.text);
+                                validatePassword(passCtrl.text);
                                 if (formKey.currentState!.validate()) {
                                   context
                                       .read<AuthBloc>()

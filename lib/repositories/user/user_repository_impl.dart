@@ -24,17 +24,20 @@ class UserRepositoryImpl extends UserRepository {
         return true;
       } else {
         await users.doc(uid).set({
-          "uid": uid,
-          "email": email,
           "username": username,
-          "profilePictureUrl": "",
+          "email": email,
           "createdAt": createdAt,
-          "updateAt": updateAt,
-          "publicProfile": true,
+          "updatedAt": updateAt,
+          "uid": uid,
+          "gender": "",
           "weight": 1,
           "height": 1,
+          "memberType": "estandar",
+          "physicalLimitations": "",
+          "foodRestrictions": "",
+          "profilePictureUrl": "",
+          "goal": "",
           "age": 16,
-          "memberType": "estandar"
         });
         return true;
       }
@@ -54,31 +57,31 @@ class UserRepositoryImpl extends UserRepository {
       }
       return null;
     } catch (e) {
-      log(e.toString());
+      log("ESTE ES EL ERROR: $e");
       return null;
     }
   }
 
   @override
   Future<bool> updateUserData({
-    required String uid,
-    required String email,
     required String username,
-    required String profilePictureUrl,
-    required bool publicProfile,
     required double weight,
     required double height,
-    required int age,
+    required String physicalLimitatioons,
+    required String foodRestrictions,
+    required String profilePictureUrl,
+    required String goal,
+    required String uid,
   }) async {
     try {
       Map<String, dynamic> userData = {
-        'email': email,
         'username': username,
-        'profilePictureUrl': profilePictureUrl,
-        'publicProfile': publicProfile,
         'weight': weight,
         'height': height,
-        'age': age,
+        'physicalLimitations': physicalLimitatioons,
+        'foodRestictions': foodRestrictions,
+        'profilePictureUrl': profilePictureUrl,
+        'goal': goal,
         'updateAt': DateTime.now(),
       };
       await usersDb.collection("users").doc(uid).update(userData);
