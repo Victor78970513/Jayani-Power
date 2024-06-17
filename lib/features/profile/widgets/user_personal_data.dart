@@ -20,9 +20,7 @@ class UserPersonalData extends StatelessWidget {
                   child: FadeInImage(
                     placeholder:
                         const AssetImage("assets/loaders/gym_loading.gif"),
-                    // image: NetworkImage(state.user.profilePictureUrl),
-                    image: NetworkImage(
-                        "https://firebasestorage.googleapis.com/v0/b/jayani-power.appspot.com/o/profile-images%2Ffrentona.jpeg?alt=media&token=c7c5d553-aa53-4ea9-8bbe-8a3a02dde61e"),
+                    image: NetworkImage(state.user.profilePictureUrl),
                     imageErrorBuilder: (context, error, stackTrace) {
                       return Image.asset(
                         "assets/loaders/gym_loading.gif",

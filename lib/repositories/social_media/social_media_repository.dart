@@ -11,4 +11,14 @@ abstract class SocialMediaRepository {
   });
 
   Future<String> sendPostImageToFIrebase(XFile pathImage);
+
+  Future<void> reactToPost({required String userId, required String postId});
+  Future<void> deleteReaction({required String userId, required String postId});
+
+  Future<void> createComment({
+    required String contenido,
+    required String userName,
+    required String profilePictureUrl,
+    required String postId,
+  });
 }

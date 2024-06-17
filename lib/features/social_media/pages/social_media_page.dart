@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jayani_power/core/shared_preferences/preferences.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
 import 'package:jayani_power/features/social_media/pages/create_post_page.dart';
@@ -29,10 +30,11 @@ class _SocialMedaPageState extends State<SocialMedaPage> {
   @override
   Widget build(BuildContext context) {
     final profileBloc = context.watch<ProfileBloc>();
+    final userId = Preferences().userUUID;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'PUBLICACIONES',
+          'COMUNIDAD',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -90,7 +92,8 @@ class _SocialMedaPageState extends State<SocialMedaPage> {
                         itemCount: postfirebaseList.length,
                         itemBuilder: (context, index) {
                           final postCard = postfirebaseList[index];
-                          return PostCard(post: postCard);
+                          final isLiked = postCard.likedBy.contains(userId);
+                          return PostCard(post: postCard, isLiked: isLiked);
                         }),
                   );
                 },

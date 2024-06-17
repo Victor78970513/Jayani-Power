@@ -10,6 +10,7 @@ class PostFirebaseModel {
   final String content;
   final int likes;
   final int comments;
+  final List<String> likedBy;
 
   PostFirebaseModel({
     required this.id,
@@ -21,20 +22,21 @@ class PostFirebaseModel {
     required this.content,
     required this.likes,
     required this.comments,
+    required this.likedBy,
   });
 
   factory PostFirebaseModel.fromJson(Map<String, dynamic> json, String id) =>
       PostFirebaseModel(
-        id: id,
-        profilePictureUrl: json["profilePictureUrl"],
-        createdAt: (json["createdAt"] as Timestamp).toDate(),
-        postImage: json["post_image"],
-        userName: json["user_name"],
-        title: json["title"],
-        content: json["content"],
-        likes: json["likes"],
-        comments: json["comments"],
-      );
+          id: id,
+          profilePictureUrl: json["profilePictureUrl"],
+          createdAt: (json["createdAt"] as Timestamp).toDate(),
+          postImage: json["post_image"],
+          userName: json["user_name"],
+          title: json["title"],
+          content: json["content"],
+          likes: json["likes"],
+          comments: json["comments"],
+          likedBy: List<String>.from(json["likedBy"] ?? []));
 
   Map<String, dynamic> toJson() => {
         "profilePictureUrl": profilePictureUrl,
@@ -70,7 +72,7 @@ class CommentFirebaseModel {
       CommentFirebaseModel(
         profilePictureUrl: json["profilePictureUrl"],
         createdAt: (json["createdAt"] as Timestamp).toDate(),
-        userName: json["user_name"],
+        userName: json["userName"],
         content: json["content"],
       );
 

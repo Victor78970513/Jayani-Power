@@ -87,6 +87,7 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
                         physicalLimitations: '',
                         foodRestrictions: '',
                         profilePictureUrl: state.user.profilePictureUrl,
+                        localImage: widget.localImage,
                         goal: '',
                         uid: state.user.uid,
                       ));
@@ -99,7 +100,7 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
               },
               child: state is ProfileLoadingState
                   ? LoadingAnimationWidget.inkDrop(
-                      color: Colors.white, size: 50)
+                      color: Colors.white, size: 30)
                   : const Text(
                       "Guardar informacion",
                       style: TextStyle(color: Colors.white, fontSize: 20),

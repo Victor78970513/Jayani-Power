@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jayani_power/core/shared_preferences/preferences.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/home/widgets/radial_progress.dart';
 import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
@@ -18,6 +19,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     final userID = context.read<AuthBloc>().state as AuthSuccessState;
     context.read<ProfileBloc>().add(OnGetProfileEvent(userID.uid));
+    porcentajeDieta = Preferences().porcentajeDieta;
+    porcentajeRutina = Preferences().porcentajeRutina;
     super.initState();
   }
 
@@ -70,6 +73,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           _Button(onPressed: () {
                             porcentajeRutina += 20;
+                            Preferences().porcentajeRutina = porcentajeRutina;
                             setState(() {});
                           })
                         ],
@@ -103,6 +107,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           _Button(onPressed: () {
                             porcentajeDieta += 20;
+                            Preferences().porcentajeDieta = porcentajeDieta;
                             setState(() {});
                           })
                         ],

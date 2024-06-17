@@ -2,17 +2,24 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jayani_power/core/shared_preferences/preferences.dart';
 import 'package:jayani_power/features/social_media/bloc/cubit/show_comments_cubit.dart';
 import 'package:jayani_power/features/social_media/widgets/coment_section.dart';
 import 'package:jayani_power/features/social_media/widgets/post_card_button.dart';
 import 'package:jayani_power/features/social_media/widgets/post_content.dart';
 import 'package:jayani_power/features/social_media/widgets/post_header.dart';
 import 'package:jayani_power/models/post_firebase_model.dart';
+import 'package:jayani_power/repositories/social_media/social_media_repository_impl.dart';
 
 class PostCard extends StatelessWidget {
   final PostFirebaseModel post;
+  final bool isLiked;
 
-  const PostCard({super.key, required this.post});
+  const PostCard({
+    super.key,
+    required this.post,
+    required this.isLiked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +37,10 @@ class PostCard extends StatelessWidget {
                 children: [
                   PostHeader(post: post),
                   PostContent(post: post),
-                  PostActions(post: post),
+                  PostActions(
+                    post: post,
+                    isLiked: isLiked,
+                  ),
                   const SizedBox(height: 5),
                   if (state)
                     FadeIn(
@@ -50,35 +60,57 @@ class PostCard extends StatelessWidget {
 }
 
 class PostActions extends StatelessWidget {
+  final bool isLiked;
   const PostActions({
     super.key,
     required this.post,
+    required this.isLiked,
   });
 
   final PostFirebaseModel post;
 
   @override
   Widget build(BuildContext context) {
+    final userId = Preferences().userUUID;
+
     return Column(
       children: [
         Row(children: [
           PostCardText(titleOnTap: () {}, title: "${post.likes} reaciones"),
           PostCardText(
-              titleOnTap: () {}, title: "${post.comments} Comentarios"),
+              titleOnTap: () {
+                context.read<ShowCommentsCubit>().showComments();
+              },
+              title: "${post.comments} Comentarios"),
         ]),
         const Divider(),
-        // const Padding(
-        //   padding: EdgeInsets.symmetric(horizontal: 10),
-        //   child: Divider(color: Color(0xffFF004D)),
-        // ),
         Row(
           children: [
             PostCardButton(
-                iconData: FontAwesomeIcons.heart,
-                iconPressed: () {},
+                iconData: isLiked
+                    ? const Icon(
+                        FontAwesomeIcons.heartCircleXmark,
+                        size: 30,
+                        color: Colors.red,
+                      )
+                    : const Icon(
+                        FontAwesomeIcons.heart,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                iconPressed: () {
+                  if (isLiked) {
+                    SocialMediaRepositoryImpl()
+                        .deleteReaction(userId: userId, postId: post.id);
+                  } else {
+                    SocialMediaRepositoryImpl()
+                        .reactToPost(userId: userId, postId: post.id);
+                  }
+                },
                 iconText: "Reacionar"),
             PostCardButton(
-                iconData: FontAwesomeIcons.commentDots,
+                iconData: const Icon(FontAwesomeIcons.commentDots,
+                    size: 30, color: Colors.white),
                 iconPressed: () {
                   context.read<ShowCommentsCubit>().showComments();
                 },

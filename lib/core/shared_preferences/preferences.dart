@@ -14,4 +14,12 @@ class Preferences {
 
   String get userUUID => _prefs.getString("useruuid") ?? "";
   set userUUID(String value) => _prefs.setString("useruuid", value);
+
+  double get porcentajeRutina => _prefs.getDouble("porcentajeRutina") ?? 0.0;
+  set porcentajeRutina(double value) =>
+      _prefs.setDouble("porcentajeRutina", value);
+
+  double get porcentajeDieta => _prefs.getDouble("porcentajeDouble") ?? 0.0;
+  set porcentajeDieta(double value) =>
+      _prefs.setDouble("porcentajeDouble", value);
 }

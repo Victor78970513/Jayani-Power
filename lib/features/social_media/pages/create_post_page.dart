@@ -4,9 +4,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jayani_power/features/social_media/bloc/create_post/create_post_bloc.dart';
 import 'package:jayani_power/models/user_model.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 void createPost({required BuildContext context, UserModel? user}) {
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController titleCtrl = TextEditingController();
+  final TextEditingController contentCtrl = TextEditingController();
   XFile? postLocalImage;
   showModalBottomSheet(
       isDismissible: false,
@@ -78,7 +80,7 @@ void createPost({required BuildContext context, UserModel? user}) {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: TextField(
-                        controller: controller,
+                        controller: titleCtrl,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "TITULO DE LA PUBLICACION",
@@ -94,7 +96,7 @@ void createPost({required BuildContext context, UserModel? user}) {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: TextField(
-                        controller: controller,
+                        controller: contentCtrl,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "¿ Sobre que quieres hablar ?",
@@ -139,11 +141,11 @@ void createPost({required BuildContext context, UserModel? user}) {
                                 : () {
                                     context.read<CreatePostBloc>().add(
                                           OnCreatePostEvent(
-                                            content: controller.text,
+                                            content: contentCtrl.text,
                                             createdAt: DateTime.now(),
                                             profilePictureUrl:
                                                 user?.profilePictureUrl ?? "",
-                                            title: "pruebita",
+                                            title: titleCtrl.text,
                                             postLocalImage: postLocalImage,
                                             userName: user?.username ??
                                                 "usuario desconocido",
@@ -151,12 +153,11 @@ void createPost({required BuildContext context, UserModel? user}) {
                                         );
                                   },
                             child: state is CreatePostLoadingState
-                                ? const Padding(
-                                    padding: EdgeInsets.all(12.0),
-                                    child: CircularProgressIndicator(
-                                      color: Color(0xffFF004D),
-                                    ),
-                                  )
+                                ? Padding(
+                                    padding: const EdgeInsets.all(0.0),
+                                    child: LoadingAnimationWidget.inkDrop(
+                                        color: const Color(0xffFF004D),
+                                        size: 20))
                                 : const Text("Publcar"),
                           ),
                         ],

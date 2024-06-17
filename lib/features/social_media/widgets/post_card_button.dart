@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class PostCardButton extends StatelessWidget {
   final VoidCallback iconPressed;
-  final IconData iconData;
+  final Icon iconData;
   final String iconText;
   const PostCardButton({
     super.key,
@@ -22,11 +22,7 @@ class PostCardButton extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: iconPressed,
-                icon: Icon(
-                  iconData,
-                  size: 30,
-                  color: Colors.white,
-                ),
+                icon: iconData,
               ),
               const SizedBox(width: 10),
               Text(iconText, style: const TextStyle(color: Colors.white))

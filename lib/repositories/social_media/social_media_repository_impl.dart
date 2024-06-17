@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -28,17 +29,6 @@ class SocialMediaRepositoryImpl extends SocialMediaRepository {
         "title": title,
         "user_name": userName,
       });
-      // DocumentReference postRef = FirebaseFirestore.instance
-      //     .collection("publicaciones")
-      //     .doc(response.id);
-      // await postRef.collection("comentarios").doc("placeholder").set({
-      //   'content':
-      //       'Este es un comentario de marcador de posición y se puede eliminar.',
-      //   'authorId': 'system',
-      //   'createdAt': DateTime.now(),
-      // });
-      // await Future.delayed(const Duration(seconds: 1));
-      // await postRef.collection("comentarios").doc("placeholder").delete();
       return true;
     } catch (e) {
       return false;
@@ -54,5 +44,54 @@ class SocialMediaRepositoryImpl extends SocialMediaRepository {
     await referenceImageToUpload.putFile(File(pathImage.path));
     final imageUrl = await referenceImageToUpload.getDownloadURL();
     return imageUrl;
+  }
+
+  @override
+  Future<void> reactToPost(
+      {required String userId, required String postId}) async {
+    final CollectionReference collection =
+        firestore.collection("publicaciones");
+
+    await collection.doc(postId).update({
+      "likes": FieldValue.increment(1),
+      "likedBy": FieldValue.arrayUnion([userId])
+    });
+  }
+
+  @override
+  Future<void> deleteReaction(
+      {required String userId, required String postId}) async {
+    final CollectionReference collection =
+        firestore.collection("publicaciones");
+
+    await collection.doc(postId).update({
+      "likes": FieldValue.increment(-1),
+      "likedBy": FieldValue.arrayRemove([userId])
+    });
+  }
+
+  @override
+  Future<void> createComment({
+    required String contenido,
+    required String userName,
+    required String profilePictureUrl,
+    required String postId,
+  }) async {
+    final CollectionReference collection =
+        firestore.collection("publicaciones");
+    try {
+      await collection.doc(postId).collection("comentarios").add({
+        "content": contenido,
+        "createdAt": DateTime.now(),
+        "profilePictureUrl": profilePictureUrl,
+        "userName": userName,
+      });
+
+      await collection.doc(postId).update({
+        "comments": FieldValue.increment(1),
+      });
+    } catch (e) {
+      log(e.toString());
+    }
   }
 }
