@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
 
 class _Button extends StatelessWidget {
   final VoidCallback onPressed;
-  const _Button({super.key, required this.onPressed});
+  const _Button({required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

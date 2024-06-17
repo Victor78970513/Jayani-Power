@@ -48,7 +48,7 @@ class _CommentsSectionState extends State<CommentsSection> {
                 ),
                 child: Row(
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.7,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10),

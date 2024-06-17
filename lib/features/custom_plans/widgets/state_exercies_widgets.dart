@@ -99,7 +99,7 @@ class SuccessCustomExerciseWidget extends StatelessWidget {
                             if (index ==
                                 workOutPlan[weekCubit].exercises.length) {
                               return Padding(
-                                padding: const EdgeInsets.only(bottom: 16),
+                                padding: const EdgeInsets.only(bottom: 60),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -134,7 +134,6 @@ class SuccessCustomExerciseWidget extends StatelessWidget {
                           },
                         ),
                       ),
-                      Container(height: 80)
                     ],
                   ),
                 )

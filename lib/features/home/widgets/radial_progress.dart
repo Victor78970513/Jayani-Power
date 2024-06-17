@@ -454,7 +454,7 @@ class _RadialProgressState extends State<RadialProgress> {
 // }
 
 class _MiRadialProgress extends CustomPainter {
-  final porcentaje;
+  final double porcentaje;
   final Color colorPrimario;
   final Color colorSecundario;
   final double grosorSecundario;

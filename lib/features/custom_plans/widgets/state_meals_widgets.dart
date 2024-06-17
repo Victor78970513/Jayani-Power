@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/core/shared_preferences/preferences.dart';
@@ -69,7 +68,7 @@ class SuccessCustomDietWidget extends StatelessWidget {
                     itemBuilder: (context, index) {
                       if (index == mealPlan[weekCubit].meals.length) {
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
+                          padding: const EdgeInsets.only(bottom: 60),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -99,7 +98,6 @@ class SuccessCustomDietWidget extends StatelessWidget {
                       }
                     }),
               ),
-              const SizedBox(height: 80),
             ],
           ),
         );
