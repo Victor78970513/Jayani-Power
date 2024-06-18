@@ -35,11 +35,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         username: response.displayName ?? "Sin nombre",
         uid: response.uid,
         createdAt: DateTime.now(),
-        updateAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
       if (created) {
         Preferences().userUUID = response.uid;
-        emit(AuthSuccessState(response.uid));
+        emit(AuthSuccessState(response.uid, false));
       } else {
         emit(AuthInitial());
       }
@@ -57,16 +57,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     if (response != null) {
+      final isNewUser = await _userRepository.isNewUser(response.user!.uid);
       final created = await _userRepository.createUser(
         email: response.user?.email ?? "sin correo",
         username: response.user?.displayName ?? "Sin nombre",
         uid: response.user!.uid,
         createdAt: DateTime.now(),
-        updateAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
+
       if (created) {
         Preferences().userUUID = response.user!.uid;
-        emit(AuthSuccessState(response.user!.uid));
+        emit(AuthSuccessState(response.user!.uid, isNewUser));
       } else {
         emit(AuthSignUpFailureState("Error al crear cuenta"));
       }
@@ -91,16 +93,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoadingState());
     final response = await _authRepository.signInWithGoogle();
     if (response != null) {
+      final isNewUser = await _userRepository.isNewUser(response.user!.uid);
       final created = await _userRepository.createUser(
         email: response.user?.email ?? "sin correo",
         username: response.user?.displayName ?? "sin nombre",
         uid: response.user!.uid,
         createdAt: DateTime.now(),
-        updateAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
       if (created) {
         Preferences().userUUID = response.user!.uid;
-        emit(AuthSuccessState(response.user!.uid));
+        emit(AuthSuccessState(response.user!.uid, isNewUser));
       } else {
         emit(AuthSignUpFailureState("Error al crear cuenta"));
       }
@@ -112,18 +115,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> _onUserFacebookSignInEvent(
       OnUserFacebookSignInEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoadingState());
+
     final response = await _authRepository.signInWithFacebook();
     if (response != null) {
+      final isNewUser = await _userRepository.isNewUser(response.user!.uid);
       final created = await _userRepository.createUser(
         email: response.user?.email ?? "sin correo",
         username: response.user?.displayName ?? "sin nombre",
         uid: response.user!.uid,
         createdAt: DateTime.now(),
-        updateAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
       if (created) {
         Preferences().userUUID = response.user!.uid;
-        emit(AuthSuccessState(response.user!.uid));
+        emit(AuthSuccessState(response.user!.uid, isNewUser));
       } else {
         emit(AuthSignUpFailureState("Error al crear cuenta"));
       }
@@ -146,11 +151,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         username: event.username,
         uid: response.user!.uid,
         createdAt: DateTime.now(),
-        updateAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
       if (created) {
         Preferences().userUUID = response.user!.uid;
-        emit(AuthSuccessState(response.user!.uid));
+        emit(AuthSuccessState(response.user!.uid, true));
       } else {
         emit(AuthSignUpFailureState("Error al crear cuenta"));
       }

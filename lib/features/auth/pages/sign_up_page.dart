@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/core/utils/check_email.dart';
+import 'package:jayani_power/core/utils/snack_bars.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/auth/widgets/input_field.dart';
 import 'package:jayani_power/features/auth/widgets/login_button.dart';
 import 'package:jayani_power/features/auth/widgets/social_media_auth_buttons.dart';
 import 'package:jayani_power/features/auth/widgets/rich_texts.dart';
+import 'package:jayani_power/features/tabs/cubit/navbar_cubit.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -23,6 +25,12 @@ class _SignUpPageState extends State<SignUpPage> {
   final formKey = GlobalKey<FormState>();
   String? _emailErrorText;
   String? _passwordErrorText;
+
+  @override
+  void initState() {
+    context.read<NavbarCubit>().changeTab(0);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -76,9 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
             Navigator.pop(context);
           }
           if (state is AuthSignUpFailureState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
+            credentialError(context, state.message);
           }
         },
         builder: (context, state) {

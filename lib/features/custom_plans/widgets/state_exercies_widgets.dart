@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/core/shared_preferences/preferences.dart';
+import 'package:jayani_power/core/utils/snack_bars.dart';
 import 'package:jayani_power/features/custom_plans/bloc/custom_exercise_bloc/custom_exercise_bloc.dart';
 import 'package:jayani_power/features/custom_plans/bloc/week/week_cubit.dart';
 import 'package:jayani_power/features/custom_plans/widgets/exercise_card.dart';
+import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
 import 'package:jayani_power/models/exercise_firebase_model.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -35,8 +37,13 @@ class SuccessCustomExerciseWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SvgPicture.asset(
+                    "assets/loaders/no_exercise.svg",
+                    color: Colors.white,
+                    height: 100,
+                  ),
                   const Text(
-                    "Hubo un error buscando tu dieta",
+                    "Hubo un error buscando tu rutina",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -44,8 +51,14 @@ class SuccessCustomExerciseWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xffFF004D),
+                    ),
                     onPressed: onPressed,
-                    child: const Text("BUSCAR SI TIENES ALGUNA DIETA"),
+                    child: const Text(
+                      "BUSCAR SI TIENES ALGUNA RUTINA",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
                   )
                 ],
               ),
@@ -79,9 +92,17 @@ class SuccessCustomExerciseWidget extends StatelessWidget {
                             const Spacer(),
                             IconButton(
                                 onPressed: () {
-                                  context.read<CustomExerciseBloc>().add(
-                                      OnDeleteUserRoutine(
-                                          snapshot.data!.docs.first.id));
+                                  final user = context
+                                      .read<ProfileBloc>()
+                                      .userModel
+                                      ?.memberType;
+                                  if (user ?? false) {
+                                    context.read<CustomExerciseBloc>().add(
+                                        OnDeleteUserRoutine(
+                                            snapshot.data!.docs.first.id));
+                                  } else {
+                                    getPremiumSnackBar(context);
+                                  }
                                 },
                                 icon: const Icon(
                                   Icons.delete,
@@ -190,6 +211,11 @@ class ErrorCustomExerciseWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SvgPicture.asset(
+          "assets/loaders/no_exercise.svg",
+          color: Colors.white,
+          height: 100,
+        ),
         const Text(
           "OCURRIO UN ERROR INTENTALO DE NUEVO",
           style: TextStyle(
@@ -197,9 +223,15 @@ class ErrorCustomExerciseWidget extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xffFF004D),
+          ),
           onPressed: onPressed,
-          child: const Text("GENERAR RUTINA PERSONALIZADA"),
-        )
+          child: const Text(
+            "GENERAR RUTINA PERSONALIZADA",
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
+        ),
       ],
     );
   }
@@ -214,15 +246,26 @@ class InitialCustomExerciseWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SvgPicture.asset(
+          "assets/loaders/no_exercise.svg",
+          color: Colors.white,
+          height: 100,
+        ),
         const Text(
           "POR EL MOMENTO NO TIENES RUTINAS",
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
+              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
         ),
         const SizedBox(height: 15),
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xffFF004D),
+          ),
           onPressed: onPressed,
-          child: const Text("GENERAR RUTINA PERSONALIZADA"),
+          child: const Text(
+            "GENERAR RUTINA PERSONALIZADA",
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
         )
       ],
     );

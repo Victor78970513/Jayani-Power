@@ -44,7 +44,7 @@ class UserPersonalData extends StatelessWidget {
                     color: Colors.white),
               ),
               Text(
-                state.user.memberType,
+                state.user.memberType ? "Premium ⭐️" : "Estandar 😁",
                 style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w400,

@@ -1,14 +1,15 @@
+import 'package:jayani_power/models/user_model.dart';
+
 class GptPromtConstats {
-  static String customDiet() {
+  static String customDiet(UserModel user) {
     return '''
     A continuacion te enviare informacion de un usuario el cual esta usando nuestra aplicacion de dietas y ejercicios, recuerda muy bien la informacion del usuario, las respuestas deben ser tal cual indican los formatos dados
     informacion del usuario :
-    La edad del usuario es: 21,
-            su altura es: 172 cm,
-            su peso actual es: 80kg,
-            el usuario  cuenta con las siguientes restricciones: sin restricciones,
-            ademas cuenta con las siguientes limitaciones: sin limitaciones,
-            por ultimo el usuario tiene la siguiente meta objetivo: Reducir de peso
+    La edad del usuario es: ${user.age},
+            su altura es: ${user.height} cm,
+            su peso actual es: ${user.weight} kg,
+            el usuario  cuenta con las siguientes restricciones alimentarias: ${user.foodRestrictions},
+            por ultimo el usuario tiene la siguiente meta objetivo: ${user.goal}
     con esta informacion necesito que realices lo siguiente:
     Como aclaracion inicial el texto entre paréntesis () solo contiene indicaciones y descripciones; no debe incluirse en la respuesta generada
 
@@ -45,16 +46,15 @@ class GptPromtConstats {
     ''';
   }
 
-  static String customExercise() {
+  static String customExercise(UserModel user) {
     return '''
     A continuacion te enviare informacion de un usuario el cual esta usando nuestra aplicacion de dietas y ejercicios, recuerda muy bien la informacion del usuario, las respuestas deben ser tal cual indican los formatos dados
     informacion del usuario :
-    La edad del usuario es: 21,
-            su altura es: 172 cm,
-            su peso actual es: 80kg,
-            el usuario  cuenta con las siguientes restricciones: sin restricciones,
-            ademas cuenta con las siguientes limitaciones: sin limitaciones,
-            por ultimo el usuario tiene la siguiente meta objetivo: Reducir de peso
+    La edad del usuario es: ${user.age},
+            su altura es: ${user.height} cm,
+            su peso actual es: ${user.weight} kg,
+            ademas cuenta con las siguientes limitaciones fisicas: ${user.physicalLimitations},
+            por ultimo el usuario tiene la siguiente meta objetivo: ${user.goal}
     con esta informacion necesito que realices lo siguiente:
     Como aclaracion inicial el texto entre paréntesis () solo contiene indicaciones y descripciones; no debe incluirse en la respuesta generada.
 

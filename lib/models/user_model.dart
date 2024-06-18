@@ -9,7 +9,7 @@ class UserModel {
   final String gender;
   final double weight;
   final double height;
-  final String memberType;
+  final bool memberType;
   final String physicalLimitations;
   final String foodRestrictions;
   final String profilePictureUrl;

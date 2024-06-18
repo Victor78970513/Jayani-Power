@@ -4,15 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/core/shared_preferences/preferences.dart';
+import 'package:jayani_power/core/utils/snack_bars.dart';
+import 'package:jayani_power/features/custom_plans/bloc/custom_diet_bloc/custom_diet_bloc_bloc.dart';
 import 'package:jayani_power/features/custom_plans/bloc/week/week_cubit.dart';
 import 'package:jayani_power/features/custom_plans/widgets/diet_card.dart';
+import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
 import 'package:jayani_power/models/diet_firebase_model.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class SuccessCustomDietWidget extends StatelessWidget {
+class SuccessCustomDietWidget extends StatefulWidget {
   final VoidCallback onPressed;
   const SuccessCustomDietWidget({super.key, required this.onPressed});
 
+  @override
+  State<SuccessCustomDietWidget> createState() =>
+      _SuccessCustomDietWidgetState();
+}
+
+class _SuccessCustomDietWidgetState extends State<SuccessCustomDietWidget> {
   @override
   Widget build(BuildContext context) {
     final weekCubit = context.watch<WeekCubit>().state;
@@ -34,6 +43,11 @@ class SuccessCustomDietWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SvgPicture.asset(
+                  "assets/loaders/no_diet.svg",
+                  color: Colors.white,
+                  height: 80,
+                ),
                 const Text(
                   "Hubo un error buscando tu dieta",
                   style: TextStyle(
@@ -43,7 +57,7 @@ class SuccessCustomDietWidget extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 ElevatedButton(
-                  onPressed: onPressed,
+                  onPressed: widget.onPressed,
                   child: const Text("BUSCAR SI TIENES ALGUNA DIETA"),
                 )
               ],
@@ -94,7 +108,25 @@ class SuccessCustomDietWidget extends StatelessWidget {
                         );
                       } else {
                         final meal = mealPlan[weekCubit].meals[index];
-                        return DietCard(meal: meal);
+                        return DietCard(
+                          meal: meal,
+                          docId: snapshot.data!.docs.first.id,
+                          onPressed: () {
+                            final user = context
+                                .read<ProfileBloc>()
+                                .userModel
+                                ?.memberType;
+                            if (user ?? false) {
+                              context
+                                  .read<CustomDietBloc>()
+                                  .add(OnDeleteUserDiet(
+                                    snapshot.data!.docs.first.id,
+                                  ));
+                            } else {
+                              getPremiumSnackBar(context);
+                            }
+                          },
+                        );
                       }
                     }),
               ),
@@ -137,6 +169,11 @@ class ErrorCustomDIetWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SvgPicture.asset(
+          "assets/loaders/no_diet.svg",
+          color: Colors.white,
+          height: 80,
+        ),
         const Text(
           "OCURRIO UN ERROR INTENTALO DE NUEVO",
           style: TextStyle(
@@ -145,7 +182,8 @@ class ErrorCustomDIetWidget extends StatelessWidget {
         const SizedBox(height: 15),
         ElevatedButton(
           onPressed: onPressed,
-          child: const Text("GENERAR RUTINA PERSONALIZADA"),
+          child: const Text("GENERAR DIETA PERSONALIZADA",
+              style: TextStyle(color: Colors.white, fontSize: 16)),
         )
       ],
     );
@@ -161,6 +199,12 @@ class InitialCustomDietWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SvgPicture.asset(
+          "assets/loaders/no_diet.svg",
+          color: Colors.white,
+          height: 80,
+        ),
+        const SizedBox(height: 10),
         const Text(
           "POR EL MOMENTO NO TIENES UNA DIETA",
           style: TextStyle(
@@ -168,9 +212,15 @@ class InitialCustomDietWidget extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xffFF004D),
+          ),
           onPressed: onPressed,
-          child: const Text("GENERAR DIETA PERSONALIZADA"),
-        )
+          child: const Text(
+            "GENERAR DIETA PERSONALIZADA",
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
+        ),
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:jayani_power/models/user_model.dart';
 import 'package:jayani_power/repositories/custom_plans/custom_plans_repository.dart';
 import 'package:jayani_power/repositories/custom_plans/custom_plans_repository_impl.dart';
 
@@ -23,7 +24,8 @@ class CustomExerciseBloc
       OnGenerateCustomExercisePlanEvent event,
       Emitter<CustomExerciseState> emit) async {
     emit(CustomExerciseLoadingState());
-    final response = await _customPlanRepository.generateCustomExercises();
+    final response =
+        await _customPlanRepository.generateCustomExercises(event.user);
     if (response == false) {
       emit(CustomExerciseErrorState());
     } else {

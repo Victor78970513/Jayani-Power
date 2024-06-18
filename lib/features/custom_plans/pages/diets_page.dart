@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/features/custom_plans/bloc/custom_diet_bloc/custom_diet_bloc_bloc.dart';
 import 'package:jayani_power/features/custom_plans/widgets/state_meals_widgets.dart';
+import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
 
 class DietsPage extends StatefulWidget {
   const DietsPage({super.key});
@@ -11,8 +12,11 @@ class DietsPage extends StatefulWidget {
 }
 
 class _DietsPageState extends State<DietsPage> {
-  void getGptDiet() =>
-      context.read<CustomDietBloc>().add(OnGetCustomDietEvent());
+  final ProfileBloc profile = ProfileBloc();
+  void getGptDiet() {
+    final userModel = context.read<ProfileBloc>().userModel;
+    context.read<CustomDietBloc>().add(OnGetCustomDietEvent(user: userModel!));
+  }
 
   void checkDiet() => context.read<CustomDietBloc>().add(OnCheckUserDiet());
 

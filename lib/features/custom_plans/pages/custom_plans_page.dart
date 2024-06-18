@@ -34,37 +34,41 @@ class _CustomoPlansPageState extends State<CustomoPlansPage>
         body: SafeArea(
       child: Column(
         children: [
-          TabBar(
-            controller: tabController,
-            dividerColor: const Color(0xffCEB2C1),
-            labelColor: Colors.white,
-            indicator: const BoxDecoration(
-              color: Colors.transparent,
-              border: Border(
-                bottom: BorderSide(
-                  color: Color(0xffFF004D),
-                  width: 3,
+          Container(
+            color: const Color(0xffFF004D),
+            child: TabBar(
+              controller: tabController,
+              dividerColor: const Color(0xffCEB2C1),
+              labelColor: Colors.white,
+              indicator: const BoxDecoration(
+                color: Colors.transparent,
+                border: Border(
+                  bottom: BorderSide(
+                    // color: Color(0xffFF004D),
+                    color: Colors.white,
+                    width: 5,
+                  ),
                 ),
               ),
+              dividerHeight: 3,
+              overlayColor: MaterialStateProperty.resolveWith(
+                  (states) => const Color(0xffFF004D)),
+              unselectedLabelColor: const Color(0xffCEB2C1),
+              tabs: const [
+                Tab(
+                  child: Text(
+                    "Dietas",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    "Rutinas",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ],
             ),
-            dividerHeight: 3,
-            overlayColor: MaterialStateProperty.resolveWith(
-                (states) => const Color(0xffFF004D)),
-            unselectedLabelColor: const Color(0xffCEB2C1),
-            tabs: const [
-              Tab(
-                child: Text(
-                  "Dietas",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Rutinas",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ],
           ),
           const WeekListWidget(),
           Expanded(

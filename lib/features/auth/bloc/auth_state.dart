@@ -9,8 +9,8 @@ final class AuthLoadingState extends AuthState {}
 
 final class AuthSuccessState extends AuthState {
   final String uid;
-
-  AuthSuccessState(this.uid);
+  final bool isNewUser;
+  AuthSuccessState(this.uid, this.isNewUser);
 }
 
 final class AuthSignInFailureState extends AuthState {

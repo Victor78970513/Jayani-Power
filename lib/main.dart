@@ -9,6 +9,7 @@ import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/custom_plans/bloc/custom_diet_bloc/custom_diet_bloc_bloc.dart';
 import 'package:jayani_power/features/custom_plans/bloc/custom_exercise_bloc/custom_exercise_bloc.dart';
 import 'package:jayani_power/features/custom_plans/bloc/week/week_cubit.dart';
+import 'package:jayani_power/features/profile/bloc/cubit/get_new_user_data_cubit.dart';
 import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
 import 'package:jayani_power/features/social_media/bloc/create_post/create_post_bloc.dart';
 import 'package:jayani_power/features/tabs/cubit/navbar_cubit.dart';
@@ -56,6 +57,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => CustomExerciseBloc()),
         BlocProvider(create: (context) => CustomDietBloc()),
         BlocProvider(create: (context) => CreatePostBloc()),
+        BlocProvider(create: (context) => GetNewUserDataCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -66,13 +68,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-
-// BlocBuilder<AuthBloc, AuthState>(
-//                 builder: (context, state) {
-//                   if (state is AuthSuccessState) {
-//                     return const TabsPage();
-//                   }
-//                   return const SignInPage();
-//                 },
-//               );

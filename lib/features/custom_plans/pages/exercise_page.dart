@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/features/custom_plans/bloc/custom_exercise_bloc/custom_exercise_bloc.dart';
 import 'package:jayani_power/features/custom_plans/widgets/state_exercies_widgets.dart';
+import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
 
 class ExercisePage extends StatefulWidget {
   const ExercisePage({super.key});
@@ -16,9 +17,13 @@ class _ExercisePageState extends State<ExercisePage> {
     super.initState();
   }
 
-  void getGptRoutine() => context
-      .read<CustomExerciseBloc>()
-      .add(OnGenerateCustomExercisePlanEvent());
+  void getGptRoutine() {
+    final userModel = context.read<ProfileBloc>().userModel;
+    context
+        .read<CustomExerciseBloc>()
+        .add(OnGenerateCustomExercisePlanEvent(user: userModel!));
+  }
+
   void checkRoutine() =>
       context.read<CustomExerciseBloc>().add(OnCheckUserRoutine());
 

@@ -63,7 +63,7 @@ class SocialMediaButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: GestureDetector(
         onTap: onTap,
         child: Container(

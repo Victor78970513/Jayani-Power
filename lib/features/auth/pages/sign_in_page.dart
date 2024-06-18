@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/core/cubit/terms_policy_cubit.dart';
 import 'package:jayani_power/core/utils/check_email.dart';
+import 'package:jayani_power/core/utils/snack_bars.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/auth/widgets/input_field.dart';
 import 'package:jayani_power/features/auth/widgets/login_button.dart';
 import 'package:jayani_power/features/auth/widgets/social_media_auth_buttons.dart';
 import 'package:jayani_power/features/auth/widgets/rich_texts.dart';
+import 'package:jayani_power/features/tabs/cubit/navbar_cubit.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SignInPage extends StatefulWidget {
@@ -23,6 +25,12 @@ class _SignInPageState extends State<SignInPage> {
   final formKey = GlobalKey<FormState>();
   String? _emailErrorText;
   String? _passwordErrorText;
+
+  @override
+  void initState() {
+    context.read<NavbarCubit>().changeTab(0);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -74,9 +82,7 @@ class _SignInPageState extends State<SignInPage> {
         body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthSignInFailureState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
+              credentialError(context, state.message);
             }
           },
           builder: (context, state) {
@@ -131,11 +137,7 @@ class _SignInPageState extends State<SignInPage> {
                                 }
                               }
                             : () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text(
-                                          "DEBES ACEPTAR LOS TERMINOS DE PRIVACIDAD Y POLITICAS")),
-                                );
+                                acceptTermsAndConditionSnackBar(context);
                               },
                         child: state is AuthLoadingState
                             ? LoadingAnimationWidget.inkDrop(

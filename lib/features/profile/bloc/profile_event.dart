@@ -11,7 +11,6 @@ final class OnGetProfileEvent extends ProfileEvent {
 
 final class OnEditProfileEvent extends ProfileEvent {
   final String username;
-  // final String email;
   final double weight;
   final double height;
   final String physicalLimitations;
@@ -23,7 +22,6 @@ final class OnEditProfileEvent extends ProfileEvent {
 
   OnEditProfileEvent({
     required this.username,
-    // required this.email,
     required this.weight,
     required this.height,
     required this.physicalLimitations,

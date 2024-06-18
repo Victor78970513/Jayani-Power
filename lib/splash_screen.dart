@@ -60,7 +60,10 @@ class _SplashScreenState extends State<SplashScreen>
             return BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 if (state is AuthSuccessState) {
-                  return FadeIn(child: const TabsPage());
+                  // if (state.isNewUser) {
+                  //   return GetNewUserData();
+                  // }
+                  return FadeIn(child: TabsPage(isNewUser: state.isNewUser));
                 }
                 return FadeIn(child: const SignInPage());
               },

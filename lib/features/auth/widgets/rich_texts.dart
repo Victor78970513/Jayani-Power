@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jayani_power/core/cubit/terms_policy_cubit.dart';
+import 'package:jayani_power/core/utils/terms_privacy.dart';
 import 'package:jayani_power/features/auth/pages/sign_up_page.dart';
 
 class TermsAndPrivacy extends StatelessWidget {
@@ -30,33 +32,38 @@ class TermsAndPrivacy extends StatelessWidget {
                 }
               },
             ),
-            Expanded(
-              child: RichText(
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                text: const TextSpan(
-                    text: "Acepto los ",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                    children: [
-                      TextSpan(
-                        text: "Terminos ",
-                        style: TextStyle(
-                            color: Color(0xffFF004D),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: "y ",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: "Politicas de privacidad",
-                        style: TextStyle(
-                            color: Color(0xffFF004D),
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ]),
+            GestureDetector(
+              onTap: () {
+                termsPrivacyModal(context: context);
+              },
+              child: Expanded(
+                child: RichText(
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  text: const TextSpan(
+                      text: "Acepto los ",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      children: [
+                        TextSpan(
+                          text: "Terminos ",
+                          style: TextStyle(
+                              color: Color(0xffFF004D),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: "y ",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: "Politicas de privacidad",
+                          style: TextStyle(
+                              color: Color(0xffFF004D),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ]),
+                ),
               ),
             ),
           ],

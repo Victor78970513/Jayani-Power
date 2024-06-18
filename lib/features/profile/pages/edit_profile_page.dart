@@ -37,7 +37,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               },
               child: CircleAvatar(
                 backgroundColor: Colors.amber[300],
-                radius: 60,
+                radius: 50,
                 child: localImage == null
                     ? const Stack(
                         children: [
@@ -45,7 +45,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             left: 0,
                             right: 0,
                             bottom: 0,
-                            child: Icon(Icons.person, size: 120),
+                            child: Icon(Icons.person, size: 100),
                           ),
                           Positioned(
                             top: 30,
@@ -53,7 +53,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             right: 0,
                             child: Icon(
                               Icons.camera_alt_outlined,
-                              size: 60,
+                              size: 50,
                               color: Colors.white,
                             ),
                           ),

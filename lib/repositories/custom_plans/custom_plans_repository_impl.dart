@@ -6,6 +6,7 @@ import 'package:jayani_power/core/constants/gpt_prompt.dart';
 import 'package:jayani_power/core/shared_preferences/preferences.dart';
 import 'package:jayani_power/models/diet_firebase_model.dart';
 import 'package:jayani_power/models/exercise_firebase_model.dart';
+import 'package:jayani_power/models/user_model.dart';
 import 'package:jayani_power/repositories/custom_plans/custom_plans_repository.dart';
 import 'package:dio/dio.dart';
 
@@ -13,12 +14,12 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   Dio dio = Dio();
   @override
-  Future<bool> generateCustomExercises() async {
+  Future<bool> generateCustomExercises(UserModel user) async {
     final uid = Preferences().userUUID;
     final CollectionReference collection =
         firestore.collection("rutinas-personalizadas");
     try {
-      final response = await gptApiCall(GptPromtConstats.customExercise());
+      final response = await gptApiCall(GptPromtConstats.customExercise(user));
       final jsonParser =
           json.decode(response.data["choices"][0]["message"]["content"]);
       List<WorkoutDay> workOutPlan = (jsonParser as List)
@@ -43,12 +44,12 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
   }
 
   @override
-  Future<bool> generateCustomDiet() async {
+  Future<bool> generateCustomDiet(UserModel user) async {
     final uid = Preferences().userUUID;
     final CollectionReference collection =
         firestore.collection("dietas-personalizadas");
     try {
-      final response = await gptApiCall(GptPromtConstats.customDiet());
+      final response = await gptApiCall(GptPromtConstats.customDiet(user));
       final jsonParser =
           json.decode(response.data["choices"][0]["message"]["content"]);
       List<MealPlanDay> mealPlan = (jsonParser as List)
@@ -134,6 +135,18 @@ class CustomPLansRepositoryImpl extends CustomPlansRepository {
       await collection.doc(routineId).update({
         "is_available": false,
       });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> deleteDiet(String dietId) async {
+    final CollectionReference collection =
+        firestore.collection("dietas-personalizadas");
+    try {
+      await collection.doc(dietId).update({"is_available": false});
       return true;
     } catch (e) {
       return false;

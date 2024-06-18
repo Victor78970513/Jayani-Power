@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jayani_power/core/shared_preferences/preferences.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/home/widgets/radial_progress.dart';
@@ -26,18 +27,29 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final userBloc = context.watch<ProfileBloc>().userModel;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            title: Text(
-              "Bienvenido!!!!! ${userBloc?.username ?? ""}",
-              style: const TextStyle(
-                color: Colors.white,
-                fontStyle: FontStyle.italic,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+            backgroundColor: const Color(0xffFF004D),
+            title: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Row(
+                children: [
+                  const Text(
+                    "JAYANI POWER",
+                    style: TextStyle(
+                      color: Colors.white,
+                      // fontStyle: FontStyle.italic,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Spacer(),
+                  SvgPicture.asset(
+                    "assets/icons/jayani_logo_black.svg",
+                    height: 45,
+                  )
+                ],
               ),
             ),
           ),

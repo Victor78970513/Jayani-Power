@@ -1,11 +1,15 @@
-abstract class CustomPlansRepository {
-  Future<bool> generateCustomExercises();
+import 'package:jayani_power/models/user_model.dart';
 
-  Future<bool> generateCustomDiet();
+abstract class CustomPlansRepository {
+  Future<bool> generateCustomExercises(UserModel user);
+
+  Future<bool> generateCustomDiet(UserModel user);
 
   Future<bool> checkUserRoutine();
 
   Future<bool> checkUserDiet();
 
   Future<bool> deleteRoutine(String routineId);
+
+  Future<bool> deleteDiet(String dietId);
 }
