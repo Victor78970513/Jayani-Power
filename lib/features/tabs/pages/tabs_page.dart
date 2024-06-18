@@ -76,7 +76,6 @@ void getDataFromNewUser({
   //
   final userUid = Preferences().userUUID;
   showModalBottomSheet(
-    isDismissible: false,
     isScrollControlled: true,
     backgroundColor: const Color(0xff252935),
     context: context,
@@ -89,68 +88,78 @@ void getDataFromNewUser({
           }
         },
         builder: (context, state) {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.8,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Llena los campos porfavor",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  const SizedBox(height: 20),
-                  EditTextField(
-                    title: "Edad",
-                    controller: ageCtrl,
-                    keyboardType: TextInputType.number,
-                  ),
-                  EditTextField(
-                    title: "Peso",
-                    controller: weightCtrl,
-                    keyboardType: TextInputType.number,
-                  ),
-                  EditTextField(title: "Altura", controller: heaightCtrl),
-                  EditTextField(title: "Genero", controller: genderCtrl),
-                  EditTextField(
-                      title: "Restricciones fisicas", controller: physicalCtrl),
-                  EditTextField(
-                      title: "Restricciones alimentarias",
-                      controller: foodResCtrl),
-                  EditTextField(title: "Objetivo", controller: goalCtrl),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(300, 50),
-                      backgroundColor: const Color(0xffFF004D),
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 20),
+                    const Text(
+                      "Llena los campos porfavor",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                    onPressed: state is GetNewUserDataLoading
-                        ? () {}
-                        : () {
-                            context.read<GetNewUserDataCubit>().setData(
-                                  uid: userUid,
-                                  age: int.parse(ageCtrl.text),
-                                  height: double.parse(heaightCtrl.text),
-                                  weight: double.parse(weightCtrl.text),
-                                  gender: genderCtrl.text,
-                                  physicalLimitations: physicalCtrl.text,
-                                  foodRestrictions: foodResCtrl.text,
-                                  goal: goalCtrl.text,
-                                );
-                          },
-                    child: state is GetNewUserDataLoading
-                        ? Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: LoadingAnimationWidget.inkDrop(
-                                color: const Color(0xffFF004D), size: 20))
-                        : const Text(
-                            "Guardar",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                  ),
-                  const SizedBox(height: 80),
-                ],
+                    const SizedBox(height: 20),
+                    EditTextField(
+                      title: "Edad",
+                      controller: ageCtrl,
+                      keyboardType: TextInputType.number,
+                    ),
+                    EditTextField(
+                      title: "Peso",
+                      controller: weightCtrl,
+                      keyboardType: TextInputType.number,
+                    ),
+                    EditTextField(
+                      title: "Altura",
+                      controller: heaightCtrl,
+                      keyboardType: TextInputType.number,
+                    ),
+                    EditTextField(title: "Genero", controller: genderCtrl),
+                    EditTextField(
+                        title: "Restricciones fisicas",
+                        controller: physicalCtrl),
+                    EditTextField(
+                        title: "Restricciones alimentarias",
+                        controller: foodResCtrl),
+                    EditTextField(title: "Objetivo", controller: goalCtrl),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(300, 50),
+                        backgroundColor: const Color(0xffFF004D),
+                      ),
+                      onPressed: state is GetNewUserDataLoading
+                          ? () {}
+                          : () {
+                              context.read<GetNewUserDataCubit>().setData(
+                                    uid: userUid,
+                                    age: int.parse(ageCtrl.text),
+                                    height: double.parse(heaightCtrl.text),
+                                    weight: double.parse(weightCtrl.text),
+                                    gender: genderCtrl.text,
+                                    physicalLimitations: physicalCtrl.text,
+                                    foodRestrictions: foodResCtrl.text,
+                                    goal: goalCtrl.text,
+                                  );
+                            },
+                      child: state is GetNewUserDataLoading
+                          ? Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: LoadingAnimationWidget.inkDrop(
+                                  color: const Color(0xffFF004D), size: 20))
+                          : const Text(
+                              "Guardar",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                    ),
+                    const SizedBox(height: 80),
+                  ],
+                ),
               ),
             ),
           );

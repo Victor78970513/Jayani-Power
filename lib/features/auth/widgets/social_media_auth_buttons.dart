@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jayani_power/core/cubit/terms_policy_cubit.dart';
+import 'package:jayani_power/core/utils/snack_bars.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 
 class SocialMediaAuthButtons extends StatelessWidget {
@@ -19,11 +20,7 @@ class SocialMediaAuthButtons extends StatelessWidget {
                   context.read<AuthBloc>().add(OnUserGoogleSignInEvent());
                 }
               : () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text(
-                            "DEBES ACEPTAR LOS TERMINOS DE PRIVACIDAD Y POLITICAS")),
-                  );
+                  acceptTermsAndConditionSnackBar(context);
                 },
           title: "Continuar con Google",
           child: Image.asset("assets/icons/google_icon.png"),
@@ -34,11 +31,7 @@ class SocialMediaAuthButtons extends StatelessWidget {
                   context.read<AuthBloc>().add(OnUserFacebookSignInEvent());
                 }
               : () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text(
-                            "DEBES ACEPTAR LOS TERMINOS DE PRIVACIDAD Y POLITICAS")),
-                  );
+                  acceptTermsAndConditionSnackBar(context);
                 },
           title: "Continuar con Meta",
           child:

@@ -39,6 +39,7 @@ class SuccessCustomExerciseWidget extends StatelessWidget {
                 children: [
                   SvgPicture.asset(
                     "assets/loaders/no_exercise.svg",
+                    // ignore: deprecated_member_use
                     color: Colors.white,
                     height: 100,
                   ),
@@ -213,6 +214,7 @@ class ErrorCustomExerciseWidget extends StatelessWidget {
       children: [
         SvgPicture.asset(
           "assets/loaders/no_exercise.svg",
+          // ignore: deprecated_member_use
           color: Colors.white,
           height: 100,
         ),
@@ -248,6 +250,7 @@ class InitialCustomExerciseWidget extends StatelessWidget {
       children: [
         SvgPicture.asset(
           "assets/loaders/no_exercise.svg",
+          // ignore: deprecated_member_use
           color: Colors.white,
           height: 100,
         ),

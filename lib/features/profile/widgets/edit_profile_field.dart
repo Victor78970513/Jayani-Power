@@ -30,6 +30,7 @@ class _EditProfileFieldsState extends State<EditProfileFields> {
     heightCtrl.text = profileBloc.user.height.toString();
     physicalCtrl.text = profileBloc.user.physicalLimitations;
     foodResCtrl.text = profileBloc.user.foodRestrictions;
+    goalCtrl.text = profileBloc.user.goal;
     super.initState();
   }
 
@@ -138,7 +139,7 @@ class EditTextField extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Container(
-            padding: const EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             width: MediaQuery.of(context).size.width,
             height: 60,
             decoration: BoxDecoration(

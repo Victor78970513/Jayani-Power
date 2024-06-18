@@ -26,9 +26,7 @@ class PostContent extends StatelessWidget {
           post.postImage.isNotEmpty
               ? Padding(
                   padding: const EdgeInsets.only(top: 10),
-                  child: Container(
-                    color: Colors.red,
-                    height: 200,
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: FadeInImage(
                       placeholder:

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jayani_power/core/shared_preferences/preferences.dart';
 import 'package:jayani_power/core/utils/terms_privacy.dart';
 import 'package:jayani_power/features/auth/bloc/auth_bloc.dart';
 import 'package:jayani_power/features/profile/bloc/profile_bloc.dart';
@@ -80,6 +81,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 title: "Cerrar Sesion",
                 onPressed: () async {
                   context.read<AuthBloc>().add(OnUserSignOut());
+                  Preferences()
+                    ..porcentajeDieta = 0.0
+                    ..porcentajeRutina = 0.0;
                 },
                 icon: Icons.logout_outlined,
               )

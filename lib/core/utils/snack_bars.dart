@@ -10,7 +10,7 @@ void getPremiumSnackBar(BuildContext context) {
       title: 'Vuelvete Premium',
       message:
           'Ve al apartado de tu perfil y apreta la opcion de cambiar a premium ',
-      messageFontSize: 20,
+      messageFontSize: 14,
       contentType: ContentType.failure,
     ),
   );
@@ -28,7 +28,7 @@ void acceptTermsAndConditionSnackBar(BuildContext context) {
     content: AwesomeSnackbarContent(
       title: 'Error',
       message: 'DEBES ACEPTAR LOS TERMINOS DE PRIVACIDAD Y POLITICAS',
-      messageFontSize: 20,
+      messageFontSize: 14,
       contentType: ContentType.warning,
     ),
   );
@@ -46,7 +46,7 @@ void credentialError(BuildContext context, String message) {
     content: AwesomeSnackbarContent(
       title: 'Ocurrio un problema',
       message: message,
-      messageFontSize: 20,
+      messageFontSize: 14,
       contentType: ContentType.warning,
     ),
   );

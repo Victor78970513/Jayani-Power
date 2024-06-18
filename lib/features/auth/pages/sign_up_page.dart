@@ -127,6 +127,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         controller: passCtrl,
                         validator: (value) => _passwordErrorText,
                         onChange: validatePassword,
+                        obscureText: true,
                       ),
                       const SizedBox(height: 5),
                       const TermsAndPrivacy(),

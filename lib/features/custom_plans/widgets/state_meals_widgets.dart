@@ -45,6 +45,7 @@ class _SuccessCustomDietWidgetState extends State<SuccessCustomDietWidget> {
               children: [
                 SvgPicture.asset(
                   "assets/loaders/no_diet.svg",
+                  // ignore: deprecated_member_use
                   color: Colors.white,
                   height: 80,
                 ),
@@ -171,6 +172,7 @@ class ErrorCustomDIetWidget extends StatelessWidget {
       children: [
         SvgPicture.asset(
           "assets/loaders/no_diet.svg",
+          // ignore: deprecated_member_use
           color: Colors.white,
           height: 80,
         ),
@@ -201,6 +203,7 @@ class InitialCustomDietWidget extends StatelessWidget {
       children: [
         SvgPicture.asset(
           "assets/loaders/no_diet.svg",
+          // ignore: deprecated_member_use
           color: Colors.white,
           height: 80,
         ),

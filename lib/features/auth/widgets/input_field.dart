@@ -6,14 +6,17 @@ class InputFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final Function(String)? onChange;
+  final bool obscureText;
 
-  const InputFieldWidget(
-      {super.key,
-      required this.title,
-      required this.controller,
-      required this.hintText,
-      this.validator,
-      this.onChange});
+  const InputFieldWidget({
+    super.key,
+    required this.title,
+    required this.controller,
+    required this.hintText,
+    this.validator,
+    this.onChange,
+    this.obscureText = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +36,8 @@ class InputFieldWidget extends StatelessWidget {
               child: TextFormField(
                 style: const TextStyle(color: Colors.white),
                 controller: controller,
+                obscureText: obscureText,
+                obscuringCharacter: '*',
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: hintText,

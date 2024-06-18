@@ -38,7 +38,7 @@ class DietCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               if (meal.mealTime == "Desayuno")
                 IconButton(
                     onPressed: onPressed,
