@@ -22,4 +22,13 @@ class Preferences {
   double get porcentajeDieta => _prefs.getDouble("porcentajeDouble") ?? 0.0;
   set porcentajeDieta(double value) =>
       _prefs.setDouble("porcentajeDouble", value);
+
+  String get lastDietaClickDate => _prefs.getString('lastDietaClickDate') ?? "";
+  set lastDietaClickDate(String value) =>
+      _prefs.setString('lastDietaClickDate', value);
+
+  String get lastRutinaClickDate =>
+      _prefs.getString('lastRutinaClickDate') ?? "";
+  set lastRutinaClickDate(String value) =>
+      _prefs.setString('lastRutinaClickDate', value);
 }

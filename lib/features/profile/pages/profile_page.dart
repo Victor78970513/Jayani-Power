@@ -83,7 +83,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   context.read<AuthBloc>().add(OnUserSignOut());
                   Preferences()
                     ..porcentajeDieta = 0.0
-                    ..porcentajeRutina = 0.0;
+                    ..porcentajeRutina = 0.0
+                    ..lastDietaClickDate = ""
+                    ..lastRutinaClickDate = "";
                 },
                 icon: Icons.logout_outlined,
               )

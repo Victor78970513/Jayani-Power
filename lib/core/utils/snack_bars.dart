@@ -55,3 +55,21 @@ void credentialError(BuildContext context, String message) {
     ..hideCurrentSnackBar()
     ..showSnackBar(snackBar);
 }
+
+void progressSnackBar(BuildContext context, String message) {
+  final snackBar = SnackBar(
+    elevation: 0,
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Colors.transparent,
+    content: AwesomeSnackbarContent(
+      title: 'Intentalo mañana',
+      message: message,
+      messageFontSize: 14,
+      contentType: ContentType.help,
+    ),
+  );
+
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(snackBar);
+}
